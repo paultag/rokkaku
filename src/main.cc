@@ -28,46 +28,11 @@
 
 using namespace std;
 
-NcursesTerminal * focusedTerminal = NULL;
-std::vector<NcursesTerminal *> queue;
-
-void poke_queue() {
-	for ( unsigned int i = 0; i < queue.size(); ++i ) {
-		NcursesTerminal * nt = queue.at(i);
-		nt->poke();
-		if ( nt->render() )
-			update_screen();
-	}
-}
-
 int main ( int argc, char ** argv ) {
 	set_clog();
 	init_screen();
 	update_screen();
 	timeout(0);
 	/* We're cursing. */
-	
-	bool beegees = true;
-	
-	while ( beegees ) {
-		poke_queue();
-		
-		int ch = getch();
-		if ( ch != ERR ) {
-			if ( ch == 0x05 ) {
-				/* 0x05 is ENQ - let's use it for our special sequence. */
-				NcursesTerminal * newt = new NcursesTerminal(80,25,1,1);
-				newt->fork("/bin/bash");
-				queue.push_back( newt );
-				focusedTerminal = newt;
-			} else if ( ch < 128 ) {
-				if ( focusedTerminal != NULL )
-					focusedTerminal->type(ch);
-			}
-		} else {
-			usleep( 200 );
-		}
-	}
-	
 	uninit_screen();
 }

@@ -11,5 +11,7 @@ LDFLAGS=-lncurses -lpanel -lutil -lansiescape -lshibuya
 OUTPUT=$(BIN)rokkaku
 
 all: $(TARGETS) link
+clean:
+	rm -f *.o
 
 include $(BUILDCHAIN)build.mk

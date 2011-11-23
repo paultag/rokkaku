@@ -25,6 +25,7 @@
 
 #include <ANSITerminal.hh>
 #include <ansiescape.hh>
+#include <vector>
 #include <Pane.hh>
 
 #include <ncurses.h>
@@ -59,5 +60,8 @@ class NcursesTerminal : public ANSITerminal {
 		
 		void insert( unsigned char c );
 };
+
+
+extern std::vector<NcursesTerminal *> peers;
 
 #endif
