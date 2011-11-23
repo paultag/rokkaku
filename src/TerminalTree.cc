@@ -22,6 +22,8 @@
 
 #include "TerminalTree.hh"
 
+#include <iostream>
+
 void TerminalNode::render( int x1, int x2, int y1, int y2 ) {
 	/* Nullop */
 }
@@ -35,7 +37,7 @@ TerminalNode::~TerminalNode() {
 }
 
 TerminalTree::TerminalTree() {
-	/* Nullop */
+	this->rootNode = NULL;
 }
 
 TerminalTree::~TerminalTree() {
@@ -47,3 +49,6 @@ void TerminalTree::render( int x1, int x2, int y1, int y2 ) {
 		this->rootNode->render( x1, x2, y1, y2 );
 }
 
+void TerminalTree::setRootNode( TerminalNode * n ) {
+
+}

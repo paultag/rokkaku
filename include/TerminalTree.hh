@@ -43,6 +43,7 @@ class TerminalTree : public TerminalNode {
 		);
 		TerminalTree();
 		~TerminalTree();
+		void setRootNode( TerminalNode * n );
 };
 
 #endif

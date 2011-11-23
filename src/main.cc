@@ -24,9 +24,12 @@
 #include <vector>
 
 #include "NcursesTerminal.hh"
+#include "TerminalTree.hh"
 #include "Rokkaku.hh"
 
 using namespace std;
+
+TerminalTree tt;
 
 int main ( int argc, char ** argv ) {
 	set_clog();
@@ -34,8 +37,6 @@ int main ( int argc, char ** argv ) {
 	update_screen();
 	timeout(0);
 	/* We're cursing. */
-	
-	
 	
 	uninit_screen();
 }
