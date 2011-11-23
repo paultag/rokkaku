@@ -23,13 +23,12 @@
 #ifndef _PANE_HH_
 #define _PANE_HH_ FOO
 
-#include <ShibuyaObject.hh>
 #include <Shibuya.hh>
 
 #include <panel.h>
 #include <string>
 
-class Pane : public ShibuyaObject {
+class Pane {
 	private:
 		WINDOW * win;
 		PANEL  * pan;

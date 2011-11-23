@@ -51,12 +51,10 @@ Pane::~Pane() {
 }
 
 void Pane::focus() {
-	this->log("Focusing on me");
 	top_panel(this->pan);
 }
 
 void Pane::render_frame() {
-	this->log("Rendering the frame");
 	init_pair(2, COLOR_BLACK, COLOR_WHITE);
 	wattron(win, COLOR_PAIR(2));
 	box(win, 0, 0);
@@ -76,7 +74,6 @@ void Pane::move_to(int x, int y) {
 }
 
 void Pane::resize( int width, int height ) {
-	this->log( "Resizing" );
 	WINDOW * old_win  = this->win;
 	WINDOW * temp_win = newwin(height, width, this->y, this->x);
 	replace_panel(this->pan, temp_win);
