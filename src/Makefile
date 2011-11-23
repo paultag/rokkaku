@@ -1,5 +1,4 @@
 BUILDCHAIN=../meta/buildchain/
-include $(BUILDCHAIN)/library-info.mk
 
 LIB=../lib/
 INC=../include/
