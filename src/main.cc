@@ -30,13 +30,23 @@
 using namespace std;
 
 TerminalTree tt;
+int rX1, rX2, rY1, rY2;
 
 int main ( int argc, char ** argv ) {
 	set_clog();
 	init_screen();
+
+	/* to start, we'll just render the whole
+	   screen. */
+	rX1 = 0;
+	rX2 = 0;
+	getmaxyx(stdscr, rX2, rY2);
+
 	update_screen();
 	timeout(0);
 	/* We're cursing. */
-	
+
+	tt.render( rX1, rY1, rX2, rY2 );
+
 	uninit_screen();
 }
