@@ -20,52 +20,40 @@
  * THE SOFTWARE.
  */
 
-#include <iostream>
-#include <vector>
-#include <stdlib.h>
+#ifndef _PANE_HH_
+#define _PANE_HH_ FOO
 
-#include "NcursesTerminal.hh"
-#include "TerminalTree.hh"
-#include "Rokkaku.hh"
+#include "ShibuyaObject.hh"
+#include "Shibuya.hh"
 
-#define LOGIN_SHELL "/bin/sh"
+#include <panel.h>
+#include <string>
 
-using namespace std;
+class Pane : public ShibuyaObject {
+	private:
+		WINDOW * win;
+		PANEL  * pan;
+		String   title;
+		String   sequenceID;
+		
+		int x;
+		int y;
+		int width;
+		int height;
 
-TerminalTree tt;
-NcursesTerminal * focusedTerminal;
+	public:
+		Pane(int width, int height, int x, int y);
+		~Pane();
+		
+		void focus();
+		void move_to( int x, int y );
+		void resize( int width, int height );
+		void render_frame();
+		
+		String getId();
+		
+		void setTitle( String s );
+		WINDOW * getWindow();
+};
 
-int rX1, rX2, rY1, rY2;
-
-void do_wm_ing() {
-	char ch;
-	while ( true ) {
-		ch = getch();
-		if ( ch != ERR ) {
-			break;
-		}
-		tt.render( rX1, rY1, rX2, rY2 );
-		usleep(20);
-	}
-}
-
-int main ( int argc, char ** argv ) {
-	set_clog(); /* dump to the logging fd (note: both libansiescape
-	               and libshibuya, when compiled with DEBUG=true will
-	               write to this log as well. */
-	init_screen();
-
-	const char * login_shell = getenv("SHELL");
-	login_shell = ( login_shell ) ? login_shell : LOGIN_SHELL;
-
-	/* to start, we'll just render the whole screen. */
-	rX1 = 0;
-	rX2 = 0;
-	getmaxyx(stdscr, rX2, rY2);
-
-	update_screen();
-	timeout(0);
-	do_wm_ing();
-	uninit_screen();
-}
-
+#endif
