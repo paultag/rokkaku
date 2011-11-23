@@ -1,0 +1,45 @@
+
+
+1) new win
+
+      TerminalTree
+           |
+      RootTerminal
+           |
+        Terminal
+
+2) hsplit
+
+      TerminalTree
+           |
+      RootTerminal
+           |
+        HorzSplit
+        /      \
+    Terminal  Terminal
+
+3) vsplit
+
+      TerminalTree
+           |
+      RootTerminal
+           |
+        HorzSplit
+        /       \
+    Terminal  VertSplit
+              /       \
+          Terminal  Terminal
+
+
+
+TerminalNode.renderIn( x1, y1, x2, y2 )
+
+if terminal leaf:
+   resize to w/h, move_to(x1,y1)
+
+if split:
+   div up space according to algo
+   child1.renderIn( x1, y1, x2, y2 )
+   child2.renderIn( x1, y1, x2, y2 )
+
+(and recurse)

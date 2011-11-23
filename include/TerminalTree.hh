@@ -20,19 +20,23 @@
  * THE SOFTWARE.
  */
 
-#include <iostream>
+#ifndef _TERMINALTREE_HH_
+#define _TERMINALTREE_HH_ I_CAN_HAS
 
-#include "Rokkaku.hh"
+class TerminalNode {
+	public:
+		virtual void render();
+	private:
+		TerminalNode();
+		~TerminalNode();
+};
 
-using namespace std;
+class TerminalTree {
+	private:
+		TerminalNode * rootNode;
+	public:
+		TerminalTree();
+		~TerminalTree();
+};
 
-int main ( int argc, char ** argv ) {
-	set_clog();
-	init_screen();
-	update_screen();
-	/* We're cursing. */
-	
-	
-	
-	uninit_screen();
-}
+#endif
