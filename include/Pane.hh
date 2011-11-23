@@ -23,8 +23,8 @@
 #ifndef _PANE_HH_
 #define _PANE_HH_ FOO
 
-#include "ShibuyaObject.hh"
-#include "Shibuya.hh"
+#include <ShibuyaObject.hh>
+#include <Shibuya.hh>
 
 #include <panel.h>
 #include <string>

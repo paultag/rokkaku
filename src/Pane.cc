@@ -20,7 +20,8 @@
  * THE SOFTWARE.
  */
 
-#include "Shibuya.hh"
+#include <Shibuya.hh>
+
 #include "Pane.hh"
 
 #include <iostream>

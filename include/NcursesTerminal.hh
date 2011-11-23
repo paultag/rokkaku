@@ -26,7 +26,8 @@
 #include <ANSITerminal.hh>
 #include <ansiescape.hh>
 #include <vector>
-#include <Pane.hh>
+
+#include "Pane.hh"
 
 #include <ncurses.h>
 
