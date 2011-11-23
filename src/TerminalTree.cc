@@ -50,5 +50,5 @@ void TerminalTree::render( int x1, int x2, int y1, int y2 ) {
 }
 
 void TerminalTree::setRootNode( TerminalNode * n ) {
-
+	this->rootNode = n;
 }
