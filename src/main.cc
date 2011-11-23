@@ -63,6 +63,7 @@ int main ( int argc, char ** argv ) {
 	rX2 = 0;
 	getmaxyx(stdscr, rX2, rY2);
 
+	/* mkay, let's do this! */
 	update_screen();
 	timeout(0);
 	do_wm_ing();
