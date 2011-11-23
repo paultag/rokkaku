@@ -52,7 +52,7 @@ void NcursesTerminal::_init_NcursesTerminal(
 	this->pane = new Pane((width + 2), (height + 2), x, y);
 	this->pane->setTitle( "Terminal ID: (" + this->pane->getId() + ")" );
 	this->tainted = true;
-	peers.push_back( this );
+	ncurses_terminal_peers.push_back( this );
 }
 
 NcursesTerminal::~NcursesTerminal() {
@@ -167,4 +167,4 @@ void NcursesTerminal::move_to( int x, int y ) {
 	this->pane->move_to( x, y );
 }
 
-std::vector<NcursesTerminal *> peers;
+std::vector<NcursesTerminal *> ncurses_terminal_peers;

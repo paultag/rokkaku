@@ -62,6 +62,6 @@ class NcursesTerminal : public ANSITerminal {
 };
 
 
-extern std::vector<NcursesTerminal *> peers;
+extern std::vector<NcursesTerminal *> ncurses_terminal_peers;
 
 #endif
