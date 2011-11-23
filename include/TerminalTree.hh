@@ -25,16 +25,22 @@
 
 class TerminalNode {
 	public:
-		virtual void render( int x1, int x2, int y1, int y2 );
-	private:
+		virtual void render(
+			int x1, int x2,
+			int y1, int y2
+		);
 		TerminalNode();
 		~TerminalNode();
 };
 
-class TerminalTree {
+class TerminalTree : public TerminalNode {
 	private:
 		TerminalNode * rootNode;
 	public:
+		virtual void render(
+			int x1, int x2,
+			int y1, int y2
+		);
 		TerminalTree();
 		~TerminalTree();
 };

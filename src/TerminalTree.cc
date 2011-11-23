@@ -42,3 +42,8 @@ TerminalTree::~TerminalTree() {
 	/* Nullop */
 }
 
+void TerminalTree::render( int x1, int x2, int y1, int y2 ) {
+	if ( this->rootNode )
+		this->rootNode->render( x1, x2, y1, y2 );
+}
+

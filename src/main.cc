@@ -34,5 +34,8 @@ int main ( int argc, char ** argv ) {
 	update_screen();
 	timeout(0);
 	/* We're cursing. */
+	
+	
+	
 	uninit_screen();
 }
