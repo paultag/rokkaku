@@ -57,6 +57,8 @@ void NcursesTerminal::_init_NcursesTerminal(
 
 NcursesTerminal::~NcursesTerminal() {
 	delete this->pane;
+	/* OK, now that we're going away, let's remove ourselves from
+	   the ncurses peers list */
 }
 
 bool NcursesTerminal::render( WINDOW * win ) {
