@@ -40,18 +40,25 @@ int rX1, rX2, rY1, rY2;
 
 void do_main_menu() {
 	int x, y;
+	
 	getmaxyx(stdscr, y, x);
-	Pane menu( (x - 2), (y - 2), 1, 1 );
+	
+	int b = 3;
+	
+	Pane menu( (x - (b * 2)), (y - (b * 2 )), b, b );
+	menu.setTitle("Rokkaku Main Menu");
 	menu.render_frame();
 	menu.focus();
+	
 	while ( true ) {
 		mvwprintw( menu.getWindow(), 3, 3, "SHREW" );
 		update_screen();
 		char ch = getch();
 		if ( ch != ERR ) {
-			
+			if ( ch == 'q' )
+				break;
 		} else {
-			usleep( 200 );
+			usleep( 20000 );
 		}
 	}
 }
