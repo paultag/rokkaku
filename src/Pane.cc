@@ -20,9 +20,9 @@
  * THE SOFTWARE.
  */
 
-#include <Shibuya.hh>
-
 #include "Pane.hh"
+
+#include <Shibuya.hh>
 
 #include <iostream>
 #include <sstream>
@@ -41,8 +41,6 @@ Pane::Pane(int width, int height, int x, int y) {
 	std::stringstream newID;
 	newID << sequence;
 	this->sequenceID = newID.str();
-	/* XXX: flagize this
-	keypad(this->win, true); */
 }
 
 Pane::~Pane() {

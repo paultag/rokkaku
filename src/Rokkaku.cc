@@ -20,6 +20,8 @@
  * THE SOFTWARE.
  */
 
+#include "Rokkaku.hh"
+
 #include <Shibuya.hh>
 
 #include <ncurses.h>
@@ -28,16 +30,14 @@
 #include <panel.h>
 #include <string>
 
-#include "Rokkaku.hh"
-
 void init_screen() {
 	initscr();
 	cbreak();
 	noecho();
 	start_color();
 	
-	for ( int j = 0; j < 8; j++ ) { /* BG */
-		for ( int i = 0; i < 8; i++ ) { /* FG */
+	for ( int j = 0; j < 8; j++ ) {
+		for ( int i = 0; i < 8; i++ ) {
 			int offset = SHIBUYA_GET_COLOR_PAIR(i, j);
 			SDEBUG << "Offset: " << offset << " fg/bg -- " << i << ", " << j
 				<< std::endl;

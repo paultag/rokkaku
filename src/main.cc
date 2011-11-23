@@ -27,6 +27,7 @@
 #include "NcursesTerminal.hh"
 #include "TerminalTree.hh"
 #include "Rokkaku.hh"
+#include "Pane.hh"
 
 #define LOGIN_SHELL "/bin/sh"
 
@@ -37,36 +38,56 @@ NcursesTerminal * focusedTerminal;
 
 int rX1, rX2, rY1, rY2;
 
+void do_main_menu() {
+	int x, y;
+	getmaxyx(stdscr, y, x);
+	Pane menu( (x - 2), (y - 2), 1, 1 );
+	menu.render_frame();
+	menu.focus();
+	while ( true ) {
+		mvwprintw( menu.getWindow(), 3, 3, "SHREW" );
+		update_screen();
+		char ch = getch();
+		if ( ch != ERR ) {
+			
+		} else {
+			usleep( 200 );
+		}
+	}
+}
+
 void do_wm_ing() {
 	char ch;
 	while ( true ) {
 		ch = getch();
 		if ( ch != ERR ) {
-			break;
+			if ( ch == 0x05 ) {
+				do_main_menu();
+			}
 		}
 		tt.render( rX1, rY1, rX2, rY2 );
+		update_screen();
 		usleep(20);
 	}
 }
+
+const char * login_shell;
 
 int main ( int argc, char ** argv ) {
 	set_clog(); /* dump to the logging fd (note: both libansiescape
 	               and libshibuya, when compiled with DEBUG=true will
 	               write to this log as well. */
 	init_screen();
-
-	const char * login_shell = getenv("SHELL");
+	/* let's setup the shell stuff and rock' */
+	login_shell = getenv("SHELL");
 	login_shell = ( login_shell ) ? login_shell : LOGIN_SHELL;
-
 	/* to start, we'll just render the whole screen. */
 	rX1 = 0;
 	rX2 = 0;
-	getmaxyx(stdscr, rX2, rY2);
-
+	getmaxyx(stdscr, rY2, rX2);
 	/* mkay, let's do this! */
 	update_screen();
 	timeout(0);
 	do_wm_ing();
 	uninit_screen();
 }
-
