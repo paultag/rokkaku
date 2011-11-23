@@ -22,31 +22,48 @@
 
 #include <iostream>
 #include <vector>
+#include <stdlib.h>
 
 #include "NcursesTerminal.hh"
 #include "TerminalTree.hh"
 #include "Rokkaku.hh"
 
+#define LOGIN_SHELL "/bin/sh"
+
 using namespace std;
 
 TerminalTree tt;
+NcursesTerminal * focusedTerminal;
+
 int rX1, rX2, rY1, rY2;
+
+void do_wm_ing() {
+	char ch;
+	while ( true ) {
+		ch = getch();
+		if ( ch != ERR ) {
+			break;
+		}
+		tt.render( rX1, rY1, rX2, rY2 );
+		usleep(20);
+	}
+}
 
 int main ( int argc, char ** argv ) {
 	set_clog();
 	init_screen();
 
-	/* to start, we'll just render the whole
-	   screen. */
+	const char * login_shell = getenv("SHELL");
+	login_shell = ( login_shell ) ? login_shell : LOGIN_SHELL;
+
+	/* to start, we'll just render the whole screen. */
 	rX1 = 0;
 	rX2 = 0;
 	getmaxyx(stdscr, rX2, rY2);
 
 	update_screen();
 	timeout(0);
-	/* We're cursing. */
-
-	tt.render( rX1, rY1, rX2, rY2 );
-
+	do_wm_ing();
 	uninit_screen();
 }
+
