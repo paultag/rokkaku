@@ -23,10 +23,10 @@
 #ifndef _NCURSESTERMINAL_HH_
 #define _NCURSESTERMINAL_HH_ CAN_HAS
 
-#include "ANSITerminal.hh"
-#include "Pane.hh"
-
+#include <ANSITerminal.hh>
 #include <ansiescape.hh>
+#include <Pane.hh>
+
 #include <ncurses.h>
 
 typedef struct _TerminalSize {

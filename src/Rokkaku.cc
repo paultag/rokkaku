@@ -20,6 +20,8 @@
  * THE SOFTWARE.
  */
 
+#include <Shibuya.hh>
+
 #include <ncurses.h>
 #include <iostream>
 #include <fstream>
@@ -27,7 +29,6 @@
 #include <string>
 
 #include "Rokkaku.hh"
-#include "Shibuya.hh"
 
 void init_screen() {
 	initscr();

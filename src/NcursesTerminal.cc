@@ -21,7 +21,8 @@
  */
 
 #include "NcursesTerminal.hh"
-#include "Shibuya.hh"
+
+#include <Shibuya.hh>
 
 #include <iostream>
 #include <malloc.h>
