@@ -23,9 +23,12 @@
 #include <iostream>
 #include <vector>
 #include <stdlib.h>
+#include <menu.h>
 
 #include "NcursesTerminal.hh"
+#include "TerminalEndNode.hh"
 #include "TerminalTree.hh"
+#include "RokkakuMenu.hh"
 #include "Rokkaku.hh"
 #include "Pane.hh"
 
@@ -38,39 +41,13 @@ NcursesTerminal * focusedTerminal;
 
 int rX1, rX2, rY1, rY2;
 
-void do_main_menu() {
-	int x, y;
-	
-	getmaxyx(stdscr, y, x);
-	
-	int b = 3;
-	
-	Pane menu( (x - (b * 2)), (y - (b * 2 )), b, b );
-	menu.setTitle("Rokkaku Main Menu");
-	menu.render_frame();
-	menu.focus();
-	
-	while ( true ) {
-		mvwprintw( menu.getWindow(), 3, 3, "SHREW" );
-		update_screen();
-		char ch = getch();
-		if ( ch != ERR ) {
-			if ( ch == 'q' )
-				break;
-		} else {
-			usleep( 20000 );
-		}
-	}
-}
-
 void do_wm_ing() {
 	char ch;
 	while ( true ) {
 		ch = getch();
-		if ( ch != ERR ) {
-			if ( ch == 0x05 ) {
-				do_main_menu();
-			}
+		if ( ch != ERR && ch < 128 ) {
+			if ( focusedTerminal )
+				focusedTerminal->type( ch );
 		}
 		tt.render( rX1, rY1, rX2, rY2 );
 		update_screen();
@@ -88,6 +65,19 @@ int main ( int argc, char ** argv ) {
 	/* let's setup the shell stuff and rock' */
 	login_shell = getenv("SHELL");
 	login_shell = ( login_shell ) ? login_shell : LOGIN_SHELL;
+	
+	std::clog << login_shell << std::endl;
+	
+	/* initial tty */
+	NcursesTerminal * nt = new NcursesTerminal( 80, 25, 0, 0 );
+	focusedTerminal = nt;
+	
+	nt->fork( login_shell );
+	
+	TerminalEndNode * ten = new TerminalEndNode();
+	ten->setChildTerminal( nt );
+	tt.setRootNode( ten );
+	
 	/* to start, we'll just render the whole screen. */
 	rX1 = 0;
 	rX2 = 0;

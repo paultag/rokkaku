@@ -126,6 +126,8 @@ void NcursesTerminal::sigwinch() {
 }
 
 void NcursesTerminal::resize( int x, int y ) {
+	std::clog << "Resized." << std::endl;
+	
 	TerminalCell * tcTmp =
 		(TerminalCell*) malloc(sizeof(TerminalCell) * (x * y));
 	
@@ -166,6 +168,7 @@ void NcursesTerminal::resize( int x, int y ) {
 }
 
 void NcursesTerminal::move_to( int x, int y ) {
+	std::clog << "Moved" << std::endl;
 	this->pane->move_to( x, y );
 }
 
