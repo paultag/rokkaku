@@ -21,14 +21,19 @@
  */
 
 #include <ncurses.h>
+#include <iostream>
 
 #include "TerminalNodeLeaf.hh"
 
 void TerminalNodeLeaf::render ( int rX1, int rY1, int rX2, int rY2 ) {
 	int width  = ( rX2 - rX1 );
 	int height = ( rY2 - rY1 );
+	
+	/* OK. Let's account for padding and such */
+	
 	this->child->move_to( rX1, rY1 );
-	this->child->resize( width, height );
+	this->child->resize( ( width - 2 ), ( height - 2 ) );
+	this->child->render();
 }
 
 void TerminalNodeLeaf::setChild ( NcursesTerminal * nt ) {

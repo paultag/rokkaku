@@ -60,7 +60,8 @@ void init_window_management() {
 	login_shell = ( login_shell ) ? login_shell : LOGIN_SHELL;
 	
 	/* we need an initial terminal */
-	
+	TerminalNodeLeaf * newNode = newLeaf();
+	rokkaku_terminal_tree.setRootNode( newNode );
 }
 
 TerminalTree rokkaku_terminal_tree;

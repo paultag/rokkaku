@@ -21,6 +21,7 @@
  */
 
 #include <ncurses.h>
+#include <iostream>
 
 #include "TerminalTree.hh"
 
@@ -44,6 +45,7 @@ void TerminalTree::renderTree() {
 void TerminalTree::pokeTree() {
 	if ( ! this->rootNode )
 		return;
+	
 	this->rootNode->poke();
 }
 
