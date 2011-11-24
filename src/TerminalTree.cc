@@ -20,14 +20,16 @@
  * THE SOFTWARE.
  */
 
-#ifndef _TERMINALNODE_HH_
-#define _TERMINALNODE_HH_ CAN_HAS
+#include "TerminalTree.hh"
 
-class TerminalNode {
-	private:
-	public:
-		virtual void update();
-		virtual void render( int rX1, int rY1, int rX2, int rY2 );
-};
+TerminalTree::TerminalTree() {
+	
+}
 
-#endif
+TerminalTree::~TerminalTree() {
+	
+}
+
+TerminalNode * TerminalTree::getParentNode( TerminalNode * node ) {
+
+}

@@ -32,7 +32,7 @@ class TerminalNodeLeaf : public TerminalNode {
 		NcursesTerminal * child;
 	public:
 		virtual void update();
-		virtual void render( int rX1, rY1, rX2, rY2 );
+		virtual void render( int rX1, int rY1, int rX2, int rY2 );
 		void setChild( NcursesTerminal * nt );
 };
 
