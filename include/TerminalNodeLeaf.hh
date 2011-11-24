@@ -33,6 +33,7 @@ class TerminalNodeLeaf : public TerminalNode {
 		virtual bool render( int rX1, int rY1, int rX2, int rY2 );
 		virtual void poke();
 		void setChild( NcursesTerminal * nt );
+		void type( char ch );
 };
 
 #endif

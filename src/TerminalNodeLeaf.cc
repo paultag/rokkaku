@@ -42,5 +42,11 @@ void TerminalNodeLeaf::setChild ( NcursesTerminal * nt ) {
 }
 
 void TerminalNodeLeaf::poke() {
-	this->child->poke();
+	if ( this->child )
+		this->child->poke();
+}
+
+void TerminalNodeLeaf::type( char ch ) {
+	if ( this->child )
+		this->child->type(ch);
 }

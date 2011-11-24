@@ -28,20 +28,32 @@
 #include "WindowManager.hh"
 #include "Rokkaku.hh"
 
-const char * login_shell;
+const char       * login_shell;
+TerminalNodeLeaf * focusedTerminal;
 
 void start_window_management() {
 	init_window_management();
 	window_management_loop();
 }
 
+void do_key( char ch ) {
+	if ( focusedTerminal )
+		focusedTerminal->type(ch);
+}
+
 void window_management_loop() {
 	while ( rokkaku_manage_windows ) {
-		rokkaku_terminal_tree.pokeTree();
-		rokkaku_terminal_tree.renderTree();
 		
-		update_screen();
-		usleep(200);
+		char ch = getch();
+		if ( ch != ERR && ch < 127 )
+			do_key( ch );
+		
+		rokkaku_terminal_tree.pokeTree();
+		if ( rokkaku_terminal_tree.renderTree() ) {
+			update_screen();
+		} else {
+			usleep(200);
+		}
 	}
 }
 
@@ -62,6 +74,7 @@ void init_window_management() {
 	/* we need an initial terminal */
 	TerminalNodeLeaf * newNode = newLeaf();
 	rokkaku_terminal_tree.setRootNode( newNode );
+	focusedTerminal = newNode;
 }
 
 TerminalTree rokkaku_terminal_tree;
