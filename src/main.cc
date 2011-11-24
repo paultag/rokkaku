@@ -25,35 +25,12 @@
 #include <stdlib.h>
 #include <menu.h>
 
-#include "NcursesTerminal.hh"
-#include "TerminalEndNode.hh"
-#include "TerminalTree.hh"
-#include "RokkakuMenu.hh"
 #include "Rokkaku.hh"
 #include "Pane.hh"
 
 #define LOGIN_SHELL "/bin/sh"
 
 using namespace std;
-
-TerminalTree tt;
-NcursesTerminal * focusedTerminal;
-
-int rX1, rX2, rY1, rY2;
-
-void do_wm_ing() {
-	char ch;
-	while ( true ) {
-		ch = getch();
-		if ( ch != ERR && ch < 128 ) {
-			if ( focusedTerminal )
-				focusedTerminal->type( ch );
-		}
-		tt.render( rX1, rY1, rX2, rY2 );
-		update_screen();
-		usleep(20);
-	}
-}
 
 const char * login_shell;
 
@@ -64,20 +41,7 @@ int main ( int argc, char ** argv ) {
 	init_screen();
 	/* let's setup the shell stuff and rock' */
 	login_shell = getenv("SHELL");
-	login_shell = ( login_shell ) ? login_shell : LOGIN_SHELL;
-	
-	std::clog << login_shell << std::endl;
-	
-	/* initial tty */
-	NcursesTerminal * nt = new NcursesTerminal( 80, 25, 0, 0 );
-	focusedTerminal = nt;
-	
-	nt->fork( login_shell );
-	
-	TerminalEndNode * ten = new TerminalEndNode();
-	ten->setChildTerminal( nt );
-	tt.setRootNode( ten );
-	
+	login_shell = ( login_shell ) ? login_shell : LOGIN_SHELL;	
 	/* to start, we'll just render the whole screen. */
 	rX1 = 0;
 	rX2 = 0;
@@ -85,6 +49,8 @@ int main ( int argc, char ** argv ) {
 	/* mkay, let's do this! */
 	update_screen();
 	timeout(0);
-	do_wm_ing();
+
+
+
 	uninit_screen();
 }
