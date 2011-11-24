@@ -20,11 +20,9 @@
  * THE SOFTWARE.
  */
 
-#include "TerminalNodeLeaf.hh"
+#include <ncurses.h>
 
-void TerminalNodeLeaf::update () {
-	this->child->poke();
-}
+#include "TerminalNodeLeaf.hh"
 
 void TerminalNodeLeaf::render ( int rX1, int rY1, int rX2, int rY2 ) {
 	int width  = ( rX2 - rX1 );

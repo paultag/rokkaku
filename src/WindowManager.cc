@@ -37,7 +37,9 @@ void start_window_management() {
 
 void window_management_loop() {
 	while ( rokkaku_manage_windows ) {
+		rokkaku_terminal_tree.pokeTree();
 		rokkaku_terminal_tree.renderTree();
+		
 		update_screen();
 		usleep(200);
 	}
