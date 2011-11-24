@@ -41,16 +41,9 @@ int main ( int argc, char ** argv ) {
 	init_screen();
 	/* let's setup the shell stuff and rock' */
 	login_shell = getenv("SHELL");
-	login_shell = ( login_shell ) ? login_shell : LOGIN_SHELL;	
-	/* to start, we'll just render the whole screen. */
-	rX1 = 0;
-	rX2 = 0;
-	getmaxyx(stdscr, rY2, rX2);
-	/* mkay, let's do this! */
+	login_shell = ( login_shell ) ? login_shell : LOGIN_SHELL;
 	update_screen();
 	timeout(0);
-
-
 
 	uninit_screen();
 }

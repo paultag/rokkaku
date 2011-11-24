@@ -68,10 +68,15 @@ String Pane::getId() {
 }
 
 void Pane::move_to(int x, int y) {
+	if ( this->x == x && this->y == y )
+		return; /* no need to waste time */
 	move_panel(this->pan, x, y);
 }
 
 void Pane::resize( int width, int height ) {
+	if ( this->width == width && this->height == height )
+		return; /* no need to waste time */
+	
 	WINDOW * old_win  = this->win;
 	WINDOW * temp_win = newwin(height, width, this->y, this->x);
 	replace_panel(this->pan, temp_win);
