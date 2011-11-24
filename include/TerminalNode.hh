@@ -28,6 +28,7 @@ class TerminalNode {
 	public:
 		virtual bool render( int rX1, int rY1, int rX2, int rY2 );
 		virtual void poke();
+		virtual bool isDead();
 };
 
 #endif

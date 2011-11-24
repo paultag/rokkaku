@@ -30,3 +30,7 @@ bool TerminalNode::render( int rX1, int rY1, int rX2, int rY2 ) {
 void TerminalNode::poke() {
 	/* XXX: Implement me */
 }
+
+bool TerminalNode::isDead() {
+	return true;
+}

@@ -46,6 +46,9 @@ void TerminalTree::pokeTree() {
 	if ( ! this->rootNode )
 		return;
 	
+	/* XXX: Dead checking */
+	// this->rootNode->isDead();
+	
 	this->rootNode->poke();
 }
 

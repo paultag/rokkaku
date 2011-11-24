@@ -27,7 +27,14 @@
 
 #include "TerminalNodeLeaf.hh"
 
+TerminalNodeLeaf::TerminalNodeLeaf() {
+	this->dead = false;
+}
+
 bool TerminalNodeLeaf::render ( int rX1, int rY1, int rX2, int rY2 ) {
+	if ( ! this->child )
+		return false;
+	
 	int width  = ( rX2 - rX1 );
 	int height = ( rY2 - rY1 );
 	
@@ -49,6 +56,8 @@ void TerminalNodeLeaf::poke() {
 			this->child->poke();
 		} catch ( DeadChildException * ex ) {
 			/* expunge the dead terminal */
+			delete this->child;
+			this->child = NULL;
 			delete ex;
 		}
 	}
@@ -57,4 +66,8 @@ void TerminalNodeLeaf::poke() {
 void TerminalNodeLeaf::type( char ch ) {
 	if ( this->child )
 		this->child->type(ch);
+}
+
+bool TerminalNodeLeaf::isDead() {
+	return this->dead;
 }
