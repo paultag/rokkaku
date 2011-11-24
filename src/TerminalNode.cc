@@ -26,7 +26,7 @@ void TerminalNode::update() {
 	/* XXX: Implement me */
 }
 
-void TerminalNode::render() {
+void TerminalNode::render( int rX1, int rY1, int rX2, int rY2 ) {
 	/* XXX: Implement me */
 }
 
