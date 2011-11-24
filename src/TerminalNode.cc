@@ -20,19 +20,13 @@
  * THE SOFTWARE.
  */
 
-#ifndef _TERMINALNODELEAF_HH_
-#define _TERMINALNODELEAF_HH_ CAN_HAS
-
-#include "NcursesTerminal.hh"
 #include "TerminalNode.hh"
 
-class TerminalNodeLeaf : public TerminalNode {
-	private:
-		NcursesTerminal * child;
-	public:
-		virtual void update();
-		virtual void render( int rX1, int rY1, int rX2, int rY2 );
-		void setChild( NcursesTerminal * nt );
-};
+void TerminalNode::update() {
+	/* XXX: Implement me */
+}
 
-#endif
+void TerminalNode::render() {
+	/* XXX: Implement me */
+}
+

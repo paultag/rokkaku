@@ -31,5 +31,5 @@ TerminalTree::~TerminalTree() {
 }
 
 TerminalNode * TerminalTree::getParentNode( TerminalNode * node ) {
-
+	
 }
