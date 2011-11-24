@@ -102,6 +102,10 @@ bool NcursesTerminal::render() {
 	return this->render(this->pane->getWindow());
 }
 
+WINDOW * NcursesTerminal::get_window() {
+	return this->pane->getWindow();
+}
+
 void NcursesTerminal::insert( unsigned char c ) {
 	this->tainted = true;
 	ANSITerminal::insert( c );

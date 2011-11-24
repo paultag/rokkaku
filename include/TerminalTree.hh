@@ -36,6 +36,7 @@ class TerminalTree {
 		void setRootNode( TerminalNode * n );
 		bool renderTree();
 		void pokeTree();
+		
 		TerminalNode * getParentNode( TerminalNode * node );
 };
 

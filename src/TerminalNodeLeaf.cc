@@ -35,14 +35,18 @@ bool TerminalNodeLeaf::render ( int rX1, int rY1, int rX2, int rY2 ) {
 	if ( ! this->child )
 		return false;
 	
+	if ( this->dead ) {
+		WINDOW * pane = this->child->get_window();
+		mvwprintw( pane, 5, 5, "Dead pane." );
+		return true;
+	}
+	
 	int width  = ( rX2 - rX1 );
 	int height = ( rY2 - rY1 );
 	
 	/* OK. Let's account for padding and such */
-	
 	this->child->move_to( rX1, rY1 );
 	this->child->resize( ( width - 2 ), ( height - 2 ) );
-	
 	return this->child->render();
 }
 
@@ -56,8 +60,7 @@ void TerminalNodeLeaf::poke() {
 			this->child->poke();
 		} catch ( DeadChildException * ex ) {
 			/* expunge the dead terminal */
-			delete this->child;
-			this->child = NULL;
+			this->dead  = true;
 			delete ex;
 		}
 	}
