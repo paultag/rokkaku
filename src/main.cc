@@ -25,25 +25,21 @@
 #include <stdlib.h>
 #include <menu.h>
 
+#include "WindowManager.hh"
 #include "Rokkaku.hh"
 #include "Pane.hh"
 
-#define LOGIN_SHELL "/bin/sh"
-
 using namespace std;
-
-const char * login_shell;
 
 int main ( int argc, char ** argv ) {
 	set_clog(); /* dump to the logging fd (note: both libansiescape
 	               and libshibuya, when compiled with DEBUG=true will
 	               write to this log as well. */
 	init_screen();
-	/* let's setup the shell stuff and rock' */
-	login_shell = getenv("SHELL");
-	login_shell = ( login_shell ) ? login_shell : LOGIN_SHELL;
 	update_screen();
 	timeout(0);
-
+	
+	start_window_management();
+	
 	uninit_screen();
 }

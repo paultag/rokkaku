@@ -25,7 +25,14 @@
 
 #include "TerminalTree.hh"
 
+#define LOGIN_SHELL "/bin/sh"
+
 extern TerminalTree rokkaku_terminal_tree;
+extern bool         rokkaku_manage_windows;
+
+void start_window_management();
+void window_management_loop();
+void init_window_management();
 
 #endif
 

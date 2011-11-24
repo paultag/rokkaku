@@ -20,6 +20,46 @@
  * THE SOFTWARE.
  */
 
+#include <iostream>
+#include <stdlib.h>
+
+#include "TerminalNodeLeaf.hh"
+#include "NcursesTerminal.hh"
 #include "WindowManager.hh"
+#include "Rokkaku.hh"
+
+const char * login_shell;
+
+void start_window_management() {
+	init_window_management();
+	window_management_loop();
+}
+
+void window_management_loop() {
+	while ( rokkaku_manage_windows ) {
+		rokkaku_terminal_tree.renderTree();
+		update_screen();
+		usleep(200);
+	}
+}
+
+TerminalNodeLeaf * newLeaf() {
+	NcursesTerminal * nt = new NcursesTerminal(80, 25, 0, 0);
+	nt->fork(login_shell);
+	TerminalNodeLeaf * newNode = new TerminalNodeLeaf();
+	newNode->setChild( nt );
+	return newNode;
+}
+
+void init_window_management() {
+	rokkaku_manage_windows = true;
+	
+	login_shell = getenv("SHELL");
+	login_shell = ( login_shell ) ? login_shell : LOGIN_SHELL;
+	
+	/* we need an initial terminal */
+	
+}
 
 TerminalTree rokkaku_terminal_tree;
+bool         rokkaku_manage_windows;

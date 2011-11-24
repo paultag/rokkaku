@@ -23,13 +23,20 @@
 #include "TerminalNodeLeaf.hh"
 
 void TerminalNodeLeaf::update () {
-	/* XXX: Implement me */
+	this->child->poke();
 }
 
 void TerminalNodeLeaf::render ( int rX1, int rY1, int rX2, int rY2 ) {
-	/* XXX: Implement me */
+	int width  = ( rX2 - rX1 );
+	int height = ( rY2 - rY1 );
+	this->child->move_to( rX1, rY1 );
+	this->child->resize( width, height );
 }
 
 void TerminalNodeLeaf::setChild ( NcursesTerminal * nt ) {
 	this->child = nt;
+}
+
+void TerminalNodeLeaf::poke() {
+	this->child->poke();
 }

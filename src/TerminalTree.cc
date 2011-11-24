@@ -20,6 +20,8 @@
  * THE SOFTWARE.
  */
 
+#include <ncurses.h>
+
 #include "TerminalTree.hh"
 
 TerminalTree::TerminalTree() {
@@ -28,6 +30,21 @@ TerminalTree::TerminalTree() {
 
 TerminalTree::~TerminalTree() {
 	
+}
+
+void TerminalTree::renderTree() {
+	if ( ! this->rootNode )
+		return;
+	
+	int width, height;
+	getmaxyx(stdscr, height, width);
+	this->rootNode->render( 0, 0, width, height );
+}
+
+void TerminalTree::pokeTree() {
+	if ( ! this->rootNode )
+		return;
+	this->rootNode->poke();
 }
 
 TerminalNode * TerminalTree::getParentNode( TerminalNode * node ) {
