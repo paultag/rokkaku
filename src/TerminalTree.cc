@@ -33,3 +33,8 @@ TerminalTree::~TerminalTree() {
 TerminalNode * TerminalTree::getParentNode( TerminalNode * node ) {
 	return 0;
 }
+
+void TerminalTree::setRootNode( TerminalNode * n ) {
+	this->rootNode = n;
+}
+

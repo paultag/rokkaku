@@ -33,6 +33,7 @@ class TerminalTree {
 		TerminalTree();
 		~TerminalTree();
 		
+		void setRootNode( TerminalNode * n );
 		TerminalNode * getParentNode( TerminalNode * node );
 };
 
