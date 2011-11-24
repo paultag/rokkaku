@@ -23,6 +23,8 @@
 #ifndef _WINDOWMANAGER_HH_
 #define _WINDOWMANAGER_HH_ I_CAN_HAS
 
+#include "TerminalTree.hh"
+
 extern TerminalTree rokkaku_terminal_tree;
 
 #endif
