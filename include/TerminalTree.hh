@@ -20,43 +20,20 @@
  * THE SOFTWARE.
  */
 
-#include "Rokkaku.hh"
+#ifndef _TERMINALTREE_HH_
+#define _TERMINALTREE_HH_ CAN_HAS
 
-#include <Shibuya.hh>
+#include "TerminalNode.hh"
 
-#include <ncurses.h>
-#include <iostream>
-#include <fstream>
-#include <panel.h>
-#include <string>
-
-void init_screen() {
-	initscr();
-	cbreak();
-	noecho();
-	start_color();
+class TerminalTree {
+	private:
+		TerminalNode * rootNode;
 	
-	for ( int j = 0; j < 8; j++ ) {
-		for ( int i = 0; i < 8; i++ ) {
-			int offset = SHIBUYA_GET_COLOR_PAIR(i, j);
-			init_pair(offset, i, j);
-		}
-	}
-}
+	public:
+		TerminalTree();
+		~TerminalTree();
+		
+		TerminalNode * getParentNode( TerminalNode * node );
+};
 
-void uninit_screen() {
-	endwin();
-}
-
-void update_screen() {
-	refresh();
-	update_panels();
-	doupdate();
-}
-
-void set_clog() {
-	String debug_log;
-	debug_log = "rokkaku.debug.log";
-	std::ofstream * ofs = new std::ofstream(debug_log.c_str());
-	std::clog.rdbuf(ofs->rdbuf());
-}
+#endif

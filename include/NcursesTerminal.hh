@@ -42,7 +42,6 @@ class NcursesTerminal : public ANSITerminal {
 	protected:
 		Pane * pane;
 		void _init_NcursesTerminal( int width, int height, int x, int y );
-
 		bool tainted;
 
 	public:

@@ -170,8 +170,9 @@ void NcursesTerminal::resize( int x, int y ) {
 }
 
 void NcursesTerminal::move_to( int x, int y ) {
-	
-	
+	/* the pane has some sanity movement checking
+	   no need to check if we're wasting time, it'll
+	   just return right back anyway. */
 	this->pane->move_to( x, y );
 }
 

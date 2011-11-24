@@ -20,43 +20,14 @@
  * THE SOFTWARE.
  */
 
-#include "Rokkaku.hh"
+#ifndef _TERMINALNODE_HH_
+#define _TERMINALNODE_HH_ CAN_HAS
 
-#include <Shibuya.hh>
+class TerminalNode {
+	private:
+	public:
+		virtual void update();
+		virtual void render( int rX1, rY1, rX2, rY2 );
+};
 
-#include <ncurses.h>
-#include <iostream>
-#include <fstream>
-#include <panel.h>
-#include <string>
-
-void init_screen() {
-	initscr();
-	cbreak();
-	noecho();
-	start_color();
-	
-	for ( int j = 0; j < 8; j++ ) {
-		for ( int i = 0; i < 8; i++ ) {
-			int offset = SHIBUYA_GET_COLOR_PAIR(i, j);
-			init_pair(offset, i, j);
-		}
-	}
-}
-
-void uninit_screen() {
-	endwin();
-}
-
-void update_screen() {
-	refresh();
-	update_panels();
-	doupdate();
-}
-
-void set_clog() {
-	String debug_log;
-	debug_log = "rokkaku.debug.log";
-	std::ofstream * ofs = new std::ofstream(debug_log.c_str());
-	std::clog.rdbuf(ofs->rdbuf());
-}
+#endif
