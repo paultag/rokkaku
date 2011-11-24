@@ -35,12 +35,6 @@ bool TerminalNodeLeaf::render ( int rX1, int rY1, int rX2, int rY2 ) {
 	if ( ! this->child )
 		return false;
 	
-	if ( this->dead ) {
-		WINDOW * pane = this->child->get_window();
-		mvwprintw( pane, 5, 5, "Dead pane." );
-		return true;
-	}
-	
 	int width  = ( rX2 - rX1 );
 	int height = ( rY2 - rY1 );
 	
