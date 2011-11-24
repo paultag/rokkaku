@@ -23,8 +23,6 @@
 #include <iostream>
 #include <stdlib.h>
 
-#include <Exceptions.hh>
-
 #include "TerminalNodeLeaf.hh"
 #include "NcursesTerminal.hh"
 #include "WindowManager.hh"
@@ -45,20 +43,15 @@ void do_key( char ch ) {
 
 void window_management_loop() {
 	while ( rokkaku_manage_windows ) {
-		try {
-			char ch = getch();
-			if ( ch != ERR && ch < 128 )
-				do_key( ch );
-			
-			rokkaku_terminal_tree.pokeTree();
-			if ( rokkaku_terminal_tree.renderTree() ) {
-				update_screen();
-			} else {
-				usleep(200);
-			}
-		} catch ( DeadChildException * ex ) {
-			/* expunge the dead terminal */
-			delete ex;
+		char ch = getch();
+		if ( ch != ERR && ch < 128 )
+			do_key( ch );
+		
+		rokkaku_terminal_tree.pokeTree();
+		if ( rokkaku_terminal_tree.renderTree() ) {
+			update_screen();
+		} else {
+			usleep(200);
 		}
 	}
 }

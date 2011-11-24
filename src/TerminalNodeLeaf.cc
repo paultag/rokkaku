@@ -23,6 +23,8 @@
 #include <ncurses.h>
 #include <iostream>
 
+#include <Exceptions.hh>
+
 #include "TerminalNodeLeaf.hh"
 
 bool TerminalNodeLeaf::render ( int rX1, int rY1, int rX2, int rY2 ) {
@@ -42,8 +44,14 @@ void TerminalNodeLeaf::setChild ( NcursesTerminal * nt ) {
 }
 
 void TerminalNodeLeaf::poke() {
-	if ( this->child )
-		this->child->poke();
+	if ( this->child ) {
+		try {
+			this->child->poke();
+		} catch ( DeadChildException * ex ) {
+			/* expunge the dead terminal */
+			delete ex;
+		}
+	}
 }
 
 void TerminalNodeLeaf::type( char ch ) {
