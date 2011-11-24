@@ -22,8 +22,9 @@
 
 #include "TerminalNode.hh"
 
-void TerminalNode::render( int rX1, int rY1, int rX2, int rY2 ) {
+bool TerminalNode::render( int rX1, int rY1, int rX2, int rY2 ) {
 	/* XXX: Implement me */
+	return false;
 }
 
 void TerminalNode::poke() {

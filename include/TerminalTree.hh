@@ -34,7 +34,7 @@ class TerminalTree {
 		~TerminalTree();
 		
 		void setRootNode( TerminalNode * n );
-		void renderTree();
+		bool renderTree();
 		void pokeTree();
 		TerminalNode * getParentNode( TerminalNode * node );
 };

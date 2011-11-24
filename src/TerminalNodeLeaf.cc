@@ -25,7 +25,7 @@
 
 #include "TerminalNodeLeaf.hh"
 
-void TerminalNodeLeaf::render ( int rX1, int rY1, int rX2, int rY2 ) {
+bool TerminalNodeLeaf::render ( int rX1, int rY1, int rX2, int rY2 ) {
 	int width  = ( rX2 - rX1 );
 	int height = ( rY2 - rY1 );
 	
@@ -33,7 +33,8 @@ void TerminalNodeLeaf::render ( int rX1, int rY1, int rX2, int rY2 ) {
 	
 	this->child->move_to( rX1, rY1 );
 	this->child->resize( ( width - 2 ), ( height - 2 ) );
-	this->child->render();
+	
+	return this->child->render();
 }
 
 void TerminalNodeLeaf::setChild ( NcursesTerminal * nt ) {

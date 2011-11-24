@@ -33,13 +33,13 @@ TerminalTree::~TerminalTree() {
 	
 }
 
-void TerminalTree::renderTree() {
+bool TerminalTree::renderTree() {
 	if ( ! this->rootNode )
-		return;
+		return false;
 	
 	int width, height;
 	getmaxyx(stdscr, height, width);
-	this->rootNode->render( 0, 0, width, height );
+	return this->rootNode->render( 0, 0, width, height );
 }
 
 void TerminalTree::pokeTree() {
