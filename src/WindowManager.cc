@@ -71,10 +71,8 @@ void init_window_management() {
 	login_shell = getenv("SHELL");
 	login_shell = ( login_shell ) ? login_shell : LOGIN_SHELL;
 	
-	/* we need an initial terminal */
 	TerminalNodeLeaf * newTopNode    = newLeaf();
 	TerminalNodeLeaf * newBottomNode = newLeaf();
-	
 	HorzSplitRenderShim * shim = new HorzSplitRenderShim(
 		newTopNode, newBottomNode );
 	

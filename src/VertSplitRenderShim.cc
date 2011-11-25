@@ -20,41 +20,44 @@
  * THE SOFTWARE.
  */
 
-#include <ncurses.h>
 #include <iostream>
 
-#include "TerminalTree.hh"
+#include "VertSplitRenderShim.hh"
 
-TerminalTree::TerminalTree() {
+VertSplitRenderShim::VertSplitRenderShim( TerminalNode * topNode,
+	TerminalNode * bottomNode
+) {
+	this->topNode    = topNode;
+	this->bottomNode = bottomNode;
+}
+
+VertSplitRenderShim::~VertSplitRenderShim() {
+	/* dealloc */
+}
+
+bool VertSplitRenderShim::render( int rX1, int rY1, int rX2, int rY2 ) {
+	int middleY = ( rY2 / 2 ); /* XXX: Fixme */
 	
-}
-
-TerminalTree::~TerminalTree() {
+	bool r1 = false;
+	bool r2 = false;
 	
-}
-
-bool TerminalTree::renderTree() {
-	if ( ! this->rootNode )
-		return false;
+	if ( this->topNode )
+		r1 = this->topNode->render(    rX1, rY1, rX2, middleY );
 	
-	int width, height;
-	getmaxyx(stdscr, height, width);
-	bool ret = this->rootNode->render( 0, 0, width, height );
-	move( 0, 0 );
-	return ret;
+	if ( this->bottomNode )
+		r2 = this->bottomNode->render( rX1, middleY, rX2, rY2 );
+	
+	return (r1 || r2);
 }
 
-void TerminalTree::pokeTree() {
-	if ( ! this->rootNode )
-		return;
-	this->rootNode->poke();
+void VertSplitRenderShim::poke() {
+	if ( this->topNode )
+		this->topNode->poke();
+	
+	if ( this->bottomNode )
+		this->bottomNode->poke();
 }
 
-TerminalNode * TerminalTree::getParentNode( TerminalNode * node ) {
-	return 0;
+bool VertSplitRenderShim::isDead() {
+	return this->dead;
 }
-
-void TerminalTree::setRootNode( TerminalNode * n ) {
-	this->rootNode = n;
-}
-

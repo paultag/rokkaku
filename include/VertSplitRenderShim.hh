@@ -20,41 +20,25 @@
  * THE SOFTWARE.
  */
 
-#include <ncurses.h>
-#include <iostream>
+#ifndef _VERTSPLITRENDERSHIM_HH_
+#define _VERTSPLITRENDERSHIM_HH_ I_CAN_HAS
 
-#include "TerminalTree.hh"
+#include "TerminalNode.hh"
 
-TerminalTree::TerminalTree() {
+class VertSplitRenderShim : public TerminalNode {
+	private:
+		bool dead;
+		TerminalNode * topNode;
+		TerminalNode * bottomNode;
 	
-}
+	public:
+		VertSplitRenderShim( TerminalNode * topNode,
+			TerminalNode * bottomNode );
+		~VertSplitRenderShim();
+		
+		virtual bool render( int rX1, int rY1, int rX2, int rY2 );
+		virtual void poke();
+		virtual bool isDead();
+};
 
-TerminalTree::~TerminalTree() {
-	
-}
-
-bool TerminalTree::renderTree() {
-	if ( ! this->rootNode )
-		return false;
-	
-	int width, height;
-	getmaxyx(stdscr, height, width);
-	bool ret = this->rootNode->render( 0, 0, width, height );
-	move( 0, 0 );
-	return ret;
-}
-
-void TerminalTree::pokeTree() {
-	if ( ! this->rootNode )
-		return;
-	this->rootNode->poke();
-}
-
-TerminalNode * TerminalTree::getParentNode( TerminalNode * node ) {
-	return 0;
-}
-
-void TerminalTree::setRootNode( TerminalNode * n ) {
-	this->rootNode = n;
-}
-
+#endif
