@@ -42,7 +42,6 @@ bool TerminalTree::renderTree() {
 	
 	bool ret = this->rootNode->render( 0, 0, width, height );
 	
-	
 	move( 0, 0 );
 	return ret;
 }

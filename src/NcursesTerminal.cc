@@ -79,7 +79,6 @@ bool NcursesTerminal::render( WINDOW * win ) {
 			/* By default, we'll disable everything. */
 			wattroff( win, A_BOLD   );
 			wattroff( win, A_BLINK  );
-			//wattrset( win, A_NORMAL );
 			
 			int colors = SHIBUYA_GET_COLOR_PAIR(
 				SHIBUYA_ATTR_GET_FG(attrs), SHIBUYA_ATTR_GET_BG(attrs));
@@ -183,7 +182,11 @@ void NcursesTerminal::move_to( int x, int y ) {
 	/* the pane has some sanity movement checking
 	   no need to check if we're wasting time, it'll
 	   just return right back anyway. */
-	this->pane->move_to( x, y );
+	if ( this->pane->move_to( x, y ) ) {
+		this->tainted = true;
+	}
+	
+	std::clog << "Tainted: " << this->tainted << std::endl;
 }
 
 std::vector<NcursesTerminal *> ncurses_terminal_peers;

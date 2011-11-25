@@ -68,10 +68,16 @@ String Pane::getId() {
 	return this->sequenceID;
 }
 
-void Pane::move_to(int x, int y) {
-	if ( this->x == x && this->y == y )
-		return; /* no need to waste time */
-	move_panel(this->pan, y, x);
+bool Pane::move_to(int ecks, int why) {
+	if ( this->x == ecks && this->y == why )
+		return false; /* no need to waste time */
+	
+	move_panel(this->pan, why, ecks);
+	
+	this->x = ecks;
+	this->y = why;
+	
+	return true;
 }
 
 void Pane::resize( int width, int height ) {

@@ -52,7 +52,7 @@ void window_management_loop() {
 		if ( rokkaku_terminal_tree.renderTree() ) {
 			update_screen();
 		} else {
-			usleep(200);
+			usleep(2000);
 		}
 	}
 }

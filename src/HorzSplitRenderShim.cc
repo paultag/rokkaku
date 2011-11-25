@@ -27,7 +27,7 @@
 HorzSplitRenderShim::HorzSplitRenderShim( TerminalNode * topNode,
 	TerminalNode * bottomNode
 ) {
-	this->topNode = topNode;
+	this->topNode    = topNode;
 	this->bottomNode = bottomNode;
 }
 
@@ -38,19 +38,24 @@ HorzSplitRenderShim::~HorzSplitRenderShim() {
 bool HorzSplitRenderShim::render( int rX1, int rY1, int rX2, int rY2 ) {
 	int middleY = ( rY2 / 2 ); /* XXX: Fixme */
 	
-	// std::clog << "Render shim entry" << std::endl;
+	bool r1 = false;
+	bool r2 = false;
 	
-	bool r1 = this->topNode->render(    rX1, rY1, rX2, middleY );
-	bool r2 = this->bottomNode->render( rX1, middleY, rX2, rY2 );
+	if ( this->topNode )
+		r1 = this->topNode->render(    rX1, rY1, rX2, middleY );
 	
-	// std::clog << "Update? " << (r1 || r2) << std::endl;
+	if ( this->bottomNode )
+		r2 = this->bottomNode->render( rX1, middleY, rX2, rY2 );
 	
-	return ( r1 || r2 );
+	return (r1 || r2);
 }
 
 void HorzSplitRenderShim::poke() {
-	this->topNode->poke();
-	this->bottomNode->poke();
+	if ( this->topNode )
+		this->topNode->poke();
+	
+	if ( this->bottomNode )
+		this->bottomNode->poke();
 }
 
 bool HorzSplitRenderShim::isDead() {

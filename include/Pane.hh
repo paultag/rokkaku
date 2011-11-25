@@ -45,7 +45,7 @@ class Pane {
 		~Pane();
 		
 		void focus();
-		void move_to( int x, int y );
+		bool move_to( int x, int y );
 		void resize( int width, int height );
 		void render_frame();
 		

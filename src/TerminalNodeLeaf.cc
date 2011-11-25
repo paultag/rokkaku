@@ -44,6 +44,7 @@ bool TerminalNodeLeaf::render ( int rX1, int rY1, int rX2, int rY2 ) {
 	/* OK. Let's account for padding and such */
 	this->child->move_to( rX1, rY1 );
 	this->child->resize( width, height );
+	
 	return this->child->render();
 }
 
@@ -58,6 +59,7 @@ void TerminalNodeLeaf::poke() {
 		} catch ( DeadChildException * ex ) {
 			/* expunge the dead terminal */
 			this->dead  = true;
+			std::clog << "Dead terminal" << std::endl;
 			delete ex;
 		}
 	}
