@@ -52,6 +52,7 @@ void NcursesTerminal::_init_NcursesTerminal(
 	this->pane = new Pane((width + 2), (height + 2), x, y);
 	this->pane->setTitle( "Terminal ID: (" + this->pane->getId() + ")" );
 	this->tainted = true;
+	this->pane->focus();
 	ncurses_terminal_peers.push_back( this );
 }
 

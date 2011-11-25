@@ -35,11 +35,15 @@ bool TerminalNodeLeaf::render ( int rX1, int rY1, int rX2, int rY2 ) {
 	if ( ! this->child )
 		return false;
 	
-	int width  = ( rX2 - rX1 );
-	int height = ( rY2 - rY1 );
+	std::clog << "Render xy wh: " << rX1 << ", " << rY1
+		<< ", " << rX2 << ", " << rY2 << std::endl;
+	
+	int width  = (( rX2 - rX1 ) - 2);
+	int height = (( rY2 - rY1 ) - 2);
+	
 	/* OK. Let's account for padding and such */
 	this->child->move_to( rX1, rY1 );
-	this->child->resize( ( width - 2 ), ( height - 2 ) );
+	this->child->resize( width, height );
 	return this->child->render();
 }
 

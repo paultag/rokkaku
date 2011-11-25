@@ -70,7 +70,7 @@ String Pane::getId() {
 void Pane::move_to(int x, int y) {
 	if ( this->x == x && this->y == y )
 		return; /* no need to waste time */
-	move_panel(this->pan, x, y);
+	move_panel(this->pan, y, x);
 }
 
 void Pane::resize( int width, int height ) {

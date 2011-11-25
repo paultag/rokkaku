@@ -49,11 +49,11 @@ void window_management_loop() {
 			do_key( ch );
 		
 		rokkaku_terminal_tree.pokeTree();
-		if ( rokkaku_terminal_tree.renderTree() ) {
-			update_screen();
-		} else {
-			usleep(200);
-		}
+		
+		rokkaku_terminal_tree.renderTree();
+		update_screen();
+		
+		usleep(40000);
 	}
 }
 
