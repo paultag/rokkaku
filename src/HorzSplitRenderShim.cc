@@ -20,6 +20,8 @@
  * THE SOFTWARE.
  */
 
+#include <iostream>
+
 #include "HorzSplitRenderShim.hh"
 
 HorzSplitRenderShim::HorzSplitRenderShim( TerminalNode * topNode,
@@ -34,8 +36,12 @@ HorzSplitRenderShim::~HorzSplitRenderShim() {
 }
 
 bool HorzSplitRenderShim::render( int rX1, int rY1, int rX2, int rY2 ) {
-	/* XXX: Implement me */
-	return false;
+	int middleY = ( rY2 / 2 ); /* XXX: Fixme */
+	
+	bool r1 = this->topNode->render( rX1, rY1, rX2, rY2 );
+	// bool r2 = this->bottomNode->render( 0, 25, 80, 50 );
+	
+	return r1; // || r2;
 }
 
 void HorzSplitRenderShim::poke() {
