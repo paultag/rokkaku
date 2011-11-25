@@ -28,12 +28,12 @@
 class VertSplitRenderShim : public TerminalNode {
 	private:
 		bool dead;
-		TerminalNode * topNode;
-		TerminalNode * bottomNode;
+		TerminalNode * leftNode;
+		TerminalNode * rightNode;
 	
 	public:
-		VertSplitRenderShim( TerminalNode * topNode,
-			TerminalNode * bottomNode );
+		VertSplitRenderShim( TerminalNode * leftNode,
+			TerminalNode * rightNode );
 		~VertSplitRenderShim();
 		
 		virtual bool render( int rX1, int rY1, int rX2, int rY2 );

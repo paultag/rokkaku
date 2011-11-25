@@ -24,6 +24,7 @@
 #include <stdlib.h>
 
 #include "HorzSplitRenderShim.hh"
+#include "VertSplitRenderShim.hh"
 #include "TerminalNodeLeaf.hh"
 #include "NcursesTerminal.hh"
 #include "WindowManager.hh"
@@ -73,11 +74,15 @@ void init_window_management() {
 	
 	TerminalNodeLeaf * newTopNode    = newLeaf();
 	TerminalNodeLeaf * newBottomNode = newLeaf();
-	HorzSplitRenderShim * shim = new HorzSplitRenderShim(
+	TerminalNodeLeaf * bigNode       = newLeaf();
+	
+	VertSplitRenderShim * shimV = new VertSplitRenderShim(
 		newTopNode, newBottomNode );
 	
-	rokkaku_terminal_tree.setRootNode( shim );
-	focusedTerminal = newTopNode;
+	HorzSplitRenderShim * shimH = new HorzSplitRenderShim( bigNode, shimV );
+	
+	rokkaku_terminal_tree.setRootNode( shimH );
+	focusedTerminal = bigNode;
 }
 
 TerminalTree rokkaku_terminal_tree;

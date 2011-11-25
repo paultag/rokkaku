@@ -24,11 +24,11 @@
 
 #include "VertSplitRenderShim.hh"
 
-VertSplitRenderShim::VertSplitRenderShim( TerminalNode * topNode,
-	TerminalNode * bottomNode
+VertSplitRenderShim::VertSplitRenderShim( TerminalNode * leftNode,
+	TerminalNode * rightNode
 ) {
-	this->topNode    = topNode;
-	this->bottomNode = bottomNode;
+	this->rightNode    = rightNode;
+	this->leftNode = leftNode;
 }
 
 VertSplitRenderShim::~VertSplitRenderShim() {
@@ -36,26 +36,26 @@ VertSplitRenderShim::~VertSplitRenderShim() {
 }
 
 bool VertSplitRenderShim::render( int rX1, int rY1, int rX2, int rY2 ) {
-	int middleY = ( rY2 / 2 ); /* XXX: Fixme */
+	int middleX = ( rX2 / 2 ); /* XXX: Fixme */
 	
 	bool r1 = false;
 	bool r2 = false;
 	
-	if ( this->topNode )
-		r1 = this->topNode->render(    rX1, rY1, rX2, middleY );
+	if ( this->leftNode )
+		r1 = this->leftNode->render(    rX1, rY1, middleX, rY2 );
 	
-	if ( this->bottomNode )
-		r2 = this->bottomNode->render( rX1, middleY, rX2, rY2 );
+	if ( this->rightNode )
+		r2 = this->rightNode->render( middleX, rY1, rX2, rY2 );
 	
 	return (r1 || r2);
 }
 
 void VertSplitRenderShim::poke() {
-	if ( this->topNode )
-		this->topNode->poke();
+	if ( this->leftNode )
+		this->leftNode->poke();
 	
-	if ( this->bottomNode )
-		this->bottomNode->poke();
+	if ( this->rightNode )
+		this->rightNode->poke();
 }
 
 bool VertSplitRenderShim::isDead() {
