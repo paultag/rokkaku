@@ -55,6 +55,7 @@ class NcursesTerminal : public ANSITerminal {
 		
 		void resize( int x, int y );
 		void move_to( int x, int y );
+		void set_cursor();
 		
 		WINDOW * get_window();
 		

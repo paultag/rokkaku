@@ -95,8 +95,6 @@ bool NcursesTerminal::render( WINDOW * win ) {
 		}
 	}
 	
-	wmove( win, this->cY + 1, this->cX + 1 );
-	
 	this->tainted = false;
 	return true;
 }
@@ -186,7 +184,11 @@ void NcursesTerminal::move_to( int x, int y ) {
 		this->tainted = true;
 	}
 	
-	std::clog << "Tainted: " << this->tainted << std::endl;
+	// std::clog << "Tainted: " << this->tainted << std::endl;
+}
+
+void NcursesTerminal::set_cursor() {
+	wmove( this->pane->getWindow(), this->cY + 1, this->cX + 1 );
 }
 
 std::vector<NcursesTerminal *> ncurses_terminal_peers;

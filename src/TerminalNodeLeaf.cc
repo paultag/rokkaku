@@ -65,6 +65,10 @@ void TerminalNodeLeaf::poke() {
 	}
 }
 
+void TerminalNodeLeaf::set_cursor() {
+	this->child->set_cursor();
+}
+
 void TerminalNodeLeaf::type( char ch ) {
 	if ( this->child )
 		this->child->type(ch);

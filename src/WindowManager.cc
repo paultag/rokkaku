@@ -51,6 +51,7 @@ void window_management_loop() {
 		
 		rokkaku_terminal_tree.pokeTree();
 		if ( rokkaku_terminal_tree.renderTree() ) {
+			focusedTerminal->set_cursor();
 			update_screen();
 		} else {
 			usleep(2000);
