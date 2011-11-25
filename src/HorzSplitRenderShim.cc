@@ -38,14 +38,14 @@ HorzSplitRenderShim::~HorzSplitRenderShim() {
 bool HorzSplitRenderShim::render( int rX1, int rY1, int rX2, int rY2 ) {
 	int middleY = ( rY2 / 2 ); /* XXX: Fixme */
 	
-	std::clog << "Render shim entry" << std::endl;
+	// std::clog << "Render shim entry" << std::endl;
 	
 	bool r1 = this->topNode->render(    rX1, rY1, rX2, middleY );
 	bool r2 = this->bottomNode->render( rX1, middleY, rX2, rY2 );
 	
-	std::clog << "Update? " << (r1 || r2) << std::endl;
+	// std::clog << "Update? " << (r1 || r2) << std::endl;
 	
-	return r1 || r2;
+	return ( r1 || r2 );
 }
 
 void HorzSplitRenderShim::poke() {

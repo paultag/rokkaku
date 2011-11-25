@@ -41,6 +41,7 @@ Pane::Pane(int width, int height, int x, int y) {
 	std::stringstream newID;
 	newID << sequence;
 	this->sequenceID = newID.str();
+	sequence++;
 }
 
 Pane::~Pane() {

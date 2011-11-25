@@ -63,8 +63,11 @@ NcursesTerminal::~NcursesTerminal() {
 }
 
 bool NcursesTerminal::render( WINDOW * win ) {
+	
 	if ( ! this->tainted )
 		return false;
+	
+	std::clog << "Rendering frames" << std::endl;
 	
 	this->pane->render_frame();
 	
@@ -80,7 +83,7 @@ bool NcursesTerminal::render( WINDOW * win ) {
 			
 			int colors = SHIBUYA_GET_COLOR_PAIR(
 				SHIBUYA_ATTR_GET_FG(attrs), SHIBUYA_ATTR_GET_BG(attrs));
-
+			
 			wattrset(win, COLOR_PAIR(colors));
 			
 			if ( SHIBUYA_ATTR_HAS_BOLD(attrs) )
@@ -134,6 +137,8 @@ void NcursesTerminal::resize( int x, int y ) {
 	
 	if ( this->width == x && this->height == y )
 		return; /* no need to waste time */
+	
+	std::clog << "Allocing new stuff during resize" << std::endl;
 	
 	TerminalCell * tcTmp =
 		(TerminalCell*) malloc(sizeof(TerminalCell) * (x * y));

@@ -40,7 +40,11 @@ bool TerminalTree::renderTree() {
 	int width, height;
 	getmaxyx(stdscr, height, width);
 	
-	return this->rootNode->render( 0, 0, width, height );
+	bool ret = this->rootNode->render( 0, 0, width, height );
+	
+	
+	move( 0, 0 );
+	return ret;
 }
 
 void TerminalTree::pokeTree() {
