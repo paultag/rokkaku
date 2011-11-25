@@ -27,8 +27,10 @@
 
 class HorzSplitRenderShim : public TerminalNode {
 	private:
+		bool dead;
 		TerminalNode * topNode;
 		TerminalNode * bottomNode;
+	
 	public:
 		HorzSplitRenderShim( TerminalNode * topNode,
 			TerminalNode * bottomNode );

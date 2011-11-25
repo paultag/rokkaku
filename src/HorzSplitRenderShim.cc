@@ -39,9 +39,10 @@ bool HorzSplitRenderShim::render( int rX1, int rY1, int rX2, int rY2 ) {
 }
 
 void HorzSplitRenderShim::poke() {
-	/* XXX: Implement me */
+	this->topNode->poke();
+	this->bottomNode->poke();
 }
 
 bool HorzSplitRenderShim::isDead() {
-	return true;
+	return this->dead;
 }
