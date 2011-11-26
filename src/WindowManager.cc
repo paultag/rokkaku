@@ -65,6 +65,7 @@ void focus_on_next_terminal() {
 void do_key( char ch ) {
 	if ( ch == 'G' ) {
 		focus_on_next_terminal();
+		focusedTerminal->focus();
 		return;
 	}
 	

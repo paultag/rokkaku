@@ -40,6 +40,7 @@ class TerminalNodeLeaf : public TerminalNode {
 		virtual void poke();
 		virtual bool isDead();
 		virtual void set_cursor();
+		virtual void focus();
 		
 		void setChild( NcursesTerminal * nt );
 		NcursesTerminal * getChild();

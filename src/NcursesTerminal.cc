@@ -52,7 +52,7 @@ void NcursesTerminal::_init_NcursesTerminal(
 	this->pane = new Pane((width + 2), (height + 2), x, y);
 	this->pane->setTitle( "Terminal ID: (" + this->pane->getId() + ")" );
 	this->tainted = true;
-	this->pane->focus();
+	this->focus();
 	ncurses_terminal_peers.push_back( this );
 }
 
@@ -189,6 +189,11 @@ void NcursesTerminal::move_to( int x, int y ) {
 
 void NcursesTerminal::set_cursor() {
 	wmove( this->pane->getWindow(), this->cY + 1, this->cX + 1 );
+}
+
+void NcursesTerminal::focus() {
+	this->pane->focus();
+	this->tainted = true;
 }
 
 std::vector<NcursesTerminal *> ncurses_terminal_peers;
