@@ -51,11 +51,21 @@ bool VertSplitRenderShim::render( int rX1, int rY1, int rX2, int rY2 ) {
 }
 
 void VertSplitRenderShim::poke() {
-	if ( this->leftNode )
+	if ( this->leftNode ) {
 		this->leftNode->poke();
+		if ( this->leftNode->isDead() ) {
+			delete this->leftNode;
+			this->leftNode = NULL;
+		}
+	}
 	
-	if ( this->rightNode )
+	if ( this->rightNode ) {
 		this->rightNode->poke();
+		if ( this->rightNode->isDead() ) {
+			delete this->rightNode;
+			this->rightNode = NULL;
+		}
+	}
 }
 
 bool VertSplitRenderShim::isDead() {

@@ -33,9 +33,7 @@
 using namespace std;
 
 int main ( int argc, char ** argv ) {
-	set_clog(); /* dump to the logging fd (note: both libansiescape
-	               and libshibuya, when compiled with DEBUG=true will
-	               write to this log as well. */
+	set_clog();
 	init_screen();
 	update_screen();
 	timeout(0);
