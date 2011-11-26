@@ -34,6 +34,7 @@ class TerminalNodeLeaf : public TerminalNode {
 		
 	public:
 		TerminalNodeLeaf();
+		~TerminalNodeLeaf();
 		
 		virtual bool render( int rX1, int rY1, int rX2, int rY2 );
 		virtual void poke();
@@ -41,6 +42,8 @@ class TerminalNodeLeaf : public TerminalNode {
 		virtual void set_cursor();
 		
 		void setChild( NcursesTerminal * nt );
+		NcursesTerminal * getChild();
+		
 		void type( char ch );
 };
 

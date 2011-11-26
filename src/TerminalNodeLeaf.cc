@@ -22,6 +22,8 @@
 
 #include <ncurses.h>
 #include <iostream>
+#include <vector>
+#include <algorithm>
 
 #include <Exceptions.hh>
 
@@ -32,6 +34,16 @@ std::vector<TerminalNodeLeaf *> rokkaku_terminal_leafs;
 TerminalNodeLeaf::TerminalNodeLeaf() {
 	this->dead = false;
 	rokkaku_terminal_leafs.push_back( this );
+}
+
+TerminalNodeLeaf::~TerminalNodeLeaf() {
+	std::vector<TerminalNodeLeaf *>::iterator fTerm =
+		std::find(
+			rokkaku_terminal_leafs.begin(),
+			rokkaku_terminal_leafs.end(),
+			this
+		);
+		rokkaku_terminal_leafs.erase( fTerm );
 }
 
 bool TerminalNodeLeaf::render ( int rX1, int rY1, int rX2, int rY2 ) {
@@ -53,6 +65,10 @@ bool TerminalNodeLeaf::render ( int rX1, int rY1, int rX2, int rY2 ) {
 
 void TerminalNodeLeaf::setChild ( NcursesTerminal * nt ) {
 	this->child = nt;
+}
+
+NcursesTerminal * TerminalNodeLeaf::getChild() {
+	return this->child;
 }
 
 void TerminalNodeLeaf::poke() {

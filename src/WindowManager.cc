@@ -107,6 +107,12 @@ void init_window_management() {
 	TerminalNodeLeaf * newBottomNode = newLeaf();
 	TerminalNodeLeaf * bigNode       = newLeaf();
 	
+	/*
+	TerminalNodeLeaf * fooNode = newLeaf();
+	delete fooNode->getChild();
+	delete fooNode;
+	*/
+	
 	VertSplitRenderShim * shimV = new VertSplitRenderShim(
 		newTopNode, newBottomNode );
 	
