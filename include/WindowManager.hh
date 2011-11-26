@@ -33,6 +33,7 @@ extern bool         rokkaku_manage_windows;
 void start_window_management();
 void window_management_loop();
 void init_window_management();
+void rokkaku_handle_signal( int signo );
 
 #endif
 

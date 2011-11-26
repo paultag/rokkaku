@@ -23,6 +23,7 @@
 #include <algorithm>
 #include <iostream>
 #include <stdlib.h>
+#include <signal.h>
 
 #include "HorzSplitRenderShim.hh"
 #include "VertSplitRenderShim.hh"
@@ -33,6 +34,25 @@
 
 const char       * login_shell;
 TerminalNodeLeaf * focusedTerminal;
+
+void rokkaku_handle_signal( int signo ) {
+	switch ( signo ) {
+		case SIGWINCH:
+			uninit_screen();
+			init_screen();
+			update_screen();
+			break;
+		case SIGTERM:
+			uninit_screen();
+			exit(0);
+			break;
+		case SIGINT:
+			focusedTerminal->getChild()->sigint();
+			break;
+		default:
+			break;
+	}
+}
 
 void start_window_management() {
 	init_window_management();
@@ -69,16 +89,19 @@ void do_key( char ch ) {
 		return;
 	}
 	
-	if ( ch < 128 ) /* If it's type-able */
-		if ( focusedTerminal ) /* and we're not null */
+	if ( ch < 0x80 ) { /* If it's type-able */
+		if ( focusedTerminal ) { /* and we're not null */
 			focusedTerminal->type(ch); /* eat it :) */
+		}
+	}
 }
 
 void window_management_loop() {
 	while ( rokkaku_manage_windows ) {
 		char ch = getch();
-		if ( ch != ERR )
+		if ( ch != ERR ) {
 			do_key( ch );
+		}
 		
 		rokkaku_terminal_tree.pokeTree();
 		if ( rokkaku_terminal_tree.renderTree() ) {
@@ -108,16 +131,10 @@ void init_window_management() {
 	TerminalNodeLeaf * newBottomNode = newLeaf();
 	TerminalNodeLeaf * bigNode       = newLeaf();
 	
-	/*
-	TerminalNodeLeaf * fooNode = newLeaf();
-	delete fooNode->getChild();
-	delete fooNode;
-	*/
-	
-	VertSplitRenderShim * shimV = new VertSplitRenderShim(
-		newTopNode, newBottomNode );
-	
-	HorzSplitRenderShim * shimH = new HorzSplitRenderShim( bigNode, shimV );
+	VertSplitRenderShim * shimV =
+		new VertSplitRenderShim( newTopNode, newBottomNode );
+	HorzSplitRenderShim * shimH =
+		new HorzSplitRenderShim( bigNode, shimV );
 	
 	rokkaku_terminal_tree.setRootNode( shimH );
 	focusedTerminal = bigNode;

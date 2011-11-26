@@ -24,6 +24,7 @@
 #include <vector>
 #include <stdlib.h>
 #include <menu.h>
+#include <signal.h>
 
 #include "WindowManager.hh"
 #include "Rokkaku.hh"
@@ -38,6 +39,10 @@ int main ( int argc, char ** argv ) {
 	init_screen();
 	update_screen();
 	timeout(0);
+	
+	//signal( SIGTERM,  rokkaku_handle_signal );
+	//signal( SIGINT,   rokkaku_handle_signal );
+	signal( SIGWINCH, rokkaku_handle_signal );
 	
 	start_window_management();
 	
