@@ -25,6 +25,7 @@
 
 #include "NcursesTerminal.hh"
 #include "TerminalNode.hh"
+#include <vector>
 
 class TerminalNodeLeaf : public TerminalNode {
 	private:
@@ -42,5 +43,7 @@ class TerminalNodeLeaf : public TerminalNode {
 		void setChild( NcursesTerminal * nt );
 		void type( char ch );
 };
+
+extern std::vector<TerminalNodeLeaf *> rokkaku_terminal_leafs;
 
 #endif

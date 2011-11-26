@@ -20,6 +20,7 @@
  * THE SOFTWARE.
  */
 
+#include <algorithm>
 #include <iostream>
 #include <stdlib.h>
 
@@ -38,15 +39,44 @@ void start_window_management() {
 	window_management_loop();
 }
 
+void focus_on_next_terminal() {
+	std::vector<TerminalNodeLeaf *>::iterator fTerm
+		= rokkaku_terminal_leafs.begin();
+	
+	fTerm = std::find(
+		rokkaku_terminal_leafs.begin(),
+		rokkaku_terminal_leafs.end(),
+		focusedTerminal
+	);
+	
+	if ( fTerm == rokkaku_terminal_leafs.end() ) {
+		fTerm = rokkaku_terminal_leafs.begin(); /* somehow we lost the item? */
+	} else {
+		fTerm += 1;
+		if ( fTerm == rokkaku_terminal_leafs.end() ) {
+			/* We were focused on the last item. let's wrap over. */
+			fTerm = rokkaku_terminal_leafs.begin();
+		}
+	}
+	
+	focusedTerminal = *fTerm;
+}
+
 void do_key( char ch ) {
-	if ( focusedTerminal )
-		focusedTerminal->type(ch);
+	if ( ch == 'G' ) {
+		focus_on_next_terminal();
+		return;
+	}
+	
+	if ( ch < 128 ) /* If it's type-able */
+		if ( focusedTerminal ) /* and we're not null */
+			focusedTerminal->type(ch); /* eat it :) */
 }
 
 void window_management_loop() {
 	while ( rokkaku_manage_windows ) {
 		char ch = getch();
-		if ( ch != ERR && ch < 128 )
+		if ( ch != ERR )
 			do_key( ch );
 		
 		rokkaku_terminal_tree.pokeTree();
@@ -54,7 +84,7 @@ void window_management_loop() {
 			focusedTerminal->set_cursor();
 			update_screen();
 		} else {
-			usleep(2000);
+			usleep(5000);
 		}
 	}
 }

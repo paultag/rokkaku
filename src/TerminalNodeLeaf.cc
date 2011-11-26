@@ -27,8 +27,11 @@
 
 #include "TerminalNodeLeaf.hh"
 
+std::vector<TerminalNodeLeaf *> rokkaku_terminal_leafs;
+
 TerminalNodeLeaf::TerminalNodeLeaf() {
 	this->dead = false;
+	rokkaku_terminal_leafs.push_back( this );
 }
 
 bool TerminalNodeLeaf::render ( int rX1, int rY1, int rX2, int rY2 ) {
