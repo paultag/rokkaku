@@ -26,34 +26,15 @@
 #include "TerminalTree.hh"
 
 TerminalTree::TerminalTree() {
-	
 }
 
 TerminalTree::~TerminalTree() {
-	
 }
 
 bool TerminalTree::renderTree() {
-	if ( ! this->rootNode )
-		return false;
-	
-	int width, height;
-	getmaxyx(stdscr, height, width);
-	bool ret = this->rootNode->render( 0, 0, width, height );
-	return ret;
 }
 
 void TerminalTree::pokeTree() {
-	if ( ! this->rootNode )
-		return;
-	this->rootNode->poke();
 }
 
-TerminalNode * TerminalTree::getParentNode( TerminalNode * node ) {
-	return 0;
-}
-
-void TerminalTree::setRootNode( TerminalNode * n ) {
-	this->rootNode = n;
-}
 

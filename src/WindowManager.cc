@@ -25,15 +25,11 @@
 #include <stdlib.h>
 #include <signal.h>
 
-#include "HorzSplitRenderShim.hh"
-#include "VertSplitRenderShim.hh"
-#include "TerminalNodeLeaf.hh"
 #include "NcursesTerminal.hh"
 #include "WindowManager.hh"
 #include "Rokkaku.hh"
 
 const char       * login_shell;
-TerminalNodeLeaf * focusedTerminal;
 
 void rokkaku_handle_signal( int signo ) {
 	switch ( signo ) {
@@ -47,7 +43,7 @@ void rokkaku_handle_signal( int signo ) {
 			exit(0);
 			break;
 		case SIGINT:
-			focusedTerminal->getChild()->sigint();
+			// focusedTerminal->getChild()->sigint();
 			break;
 		default:
 			break;
@@ -60,39 +56,13 @@ void start_window_management() {
 }
 
 void focus_on_next_terminal() {
-	std::vector<TerminalNodeLeaf *>::iterator fTerm
-		= rokkaku_terminal_leafs.begin();
-	
-	fTerm = std::find(
-		rokkaku_terminal_leafs.begin(),
-		rokkaku_terminal_leafs.end(),
-		focusedTerminal
-	);
-	
-	if ( fTerm == rokkaku_terminal_leafs.end() ) {
-		fTerm = rokkaku_terminal_leafs.begin(); /* somehow we lost the item? */
-	} else {
-		fTerm += 1;
-		if ( fTerm == rokkaku_terminal_leafs.end() ) {
-			/* We were focused on the last item. let's wrap over. */
-			fTerm = rokkaku_terminal_leafs.begin();
-		}
-	}
-	
-	focusedTerminal = *fTerm;
 }
 
 void do_key( char ch ) {
-	if ( ch == 'G' ) {
-		focus_on_next_terminal();
-		focusedTerminal->focus();
-		return;
-	}
-	
 	if ( ch < 0x80 ) { /* If it's type-able */
-		if ( focusedTerminal ) { /* and we're not null */
-			focusedTerminal->type(ch); /* eat it :) */
-		}
+		//if ( focusedTerminal ) { /* and we're not null */
+		//	focusedTerminal->type(ch); /* eat it :) */
+		//}
 	}
 }
 
@@ -113,31 +83,11 @@ void window_management_loop() {
 	}
 }
 
-TerminalNodeLeaf * newLeaf() {
-	NcursesTerminal * nt = new NcursesTerminal(80, 25, 0, 0);
-	nt->fork(login_shell);
-	TerminalNodeLeaf * newNode = new TerminalNodeLeaf();
-	newNode->setChild( nt );
-	return newNode;
-}
-
 void init_window_management() {
 	rokkaku_manage_windows = true;
 	
 	login_shell = getenv("SHELL");
 	login_shell = ( login_shell ) ? login_shell : LOGIN_SHELL;
-	
-	TerminalNodeLeaf * newTopNode    = newLeaf();
-	TerminalNodeLeaf * newBottomNode = newLeaf();
-	TerminalNodeLeaf * bigNode       = newLeaf();
-	
-	VertSplitRenderShim * shimV =
-		new VertSplitRenderShim( newTopNode, newBottomNode );
-	HorzSplitRenderShim * shimH =
-		new HorzSplitRenderShim( bigNode, shimV );
-	
-	rokkaku_terminal_tree.setRootNode( shimH );
-	focusedTerminal = bigNode;
 }
 
 TerminalTree rokkaku_terminal_tree;
