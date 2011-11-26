@@ -28,6 +28,7 @@
 #include <vector>
 
 #include "Pane.hh"
+#include "TerminalTreeNode.hh"
 
 #include <ncurses.h>
 
@@ -38,9 +39,10 @@ typedef struct _TerminalSize {
         unsigned short  ws_ypixel;      /* vertical size, pixels */
 } TerminalSize;
 
-class NcursesTerminal : public ANSITerminal {
+class NcursesTerminal : public ANSITerminal, TerminalTreeNode {
 	protected:
 		Pane * pane;
+		bool dead;
 		void _init_NcursesTerminal( int width, int height, int x, int y );
 		bool tainted;
 
@@ -59,10 +61,13 @@ class NcursesTerminal : public ANSITerminal {
 		void focus();
 		
 		WINDOW * get_window();
-		
 		void sigwinch();
-		
 		void insert( unsigned char c );
+		
+		/* Terminal Tree Node things */
+		virtual void render( int rX1, int rY1, int rX2, int rY2 );
+		virtual void flush();
+		virtual bool isDead();
 };
 
 

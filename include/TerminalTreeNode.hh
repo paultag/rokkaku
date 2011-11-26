@@ -28,6 +28,10 @@ class TerminalTreeNode {
 	public:
 		TerminalTreeNode();
 		~TerminalTreeNode();
+		
+		virtual void render( int rX1, int rY1, int rX2, int rY2 );
+		virtual void flush();
+		virtual bool isDead();
 };
 
 #endif

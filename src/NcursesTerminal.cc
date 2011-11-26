@@ -23,6 +23,7 @@
 #include "NcursesTerminal.hh"
 
 #include <Shibuya.hh>
+#include <Exceptions.hh>
 
 #include <iostream>
 #include <malloc.h>
@@ -53,6 +54,7 @@ void NcursesTerminal::_init_NcursesTerminal(
 	this->pane->setTitle( "Terminal ID: (" + this->pane->getId() + ")" );
 	this->tainted = true;
 	this->focus();
+	this->dead = false;
 	ncurses_terminal_peers.push_back( this );
 }
 
@@ -194,6 +196,23 @@ void NcursesTerminal::set_cursor() {
 void NcursesTerminal::focus() {
 	this->pane->focus();
 	this->tainted = true;
+}
+
+void NcursesTerminal::flush() {
+	try {
+		this->poke();
+	} catch ( DeadChildException * ex ) {
+		this->dead = true;
+		delete ex;
+	}
+}
+
+bool NcursesTerminal::isDead() {
+	return this->dead;
+}
+
+void NcursesTerminal::render( int rX1, int rY1, int rX2, int rY2 ) {
+
 }
 
 std::vector<NcursesTerminal *> ncurses_terminal_peers;
