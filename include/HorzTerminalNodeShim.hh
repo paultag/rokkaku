@@ -20,49 +20,23 @@
  * THE SOFTWARE.
  */
 
-#include <ncurses.h>
-#include <iostream>
+#ifndef _HORZTERMINALNODESHIM_HH_
+#define _HORZTERMINALNODESHIM_HH_ I_CAN_HAS
 
-#include "TerminalTree.hh"
+#include "TerminalTreeNode.hh"
 
-TerminalTree::TerminalTree() {
-}
+class HorzTerminalNodeShim : public TerminalTreeNode {
+	private:
+			TerminalTreeNode * topNode;
+			TerminalTreeNode * bottomNode;
+	public:
+		HorzTerminalNodeShim(TerminalTreeNode * top, TerminalTreeNode * bottom);
+		virtual ~HorzTerminalNodeShim();
+		
+		virtual void render( int rX1, int rY1, int rX2, int rY2 );
+		virtual void flush();
+		virtual bool isDead();
+		virtual void prune_tree();
+};
 
-TerminalTree::~TerminalTree() {
-}
-
-void TerminalTree::renderTree() {
-	if ( ! this->rootNode )
-		return;
-	int rX2, rY2;
-	int rX1 = 0;
-	int rY1 = 0;
-	getmaxyx(stdscr, rY2, rX2);
-	this->rootNode->render( rX1, rY1, rX2, rY2 );
-}
-
-void TerminalTree::pokeTree() {
-	if ( this->rootNode )
-		this->rootNode->flush();
-}
-
-void TerminalTree::pruneTree() {
-	if ( ! this->rootNode )
-		return; /* we can't prune */
-	
-	if ( ! this->rootNode->isDead() ) {
-		this->rootNode->prune_tree();
-		return;
-	}
-	
-	delete this->rootNode;
-	this->rootNode = NULL;
-}
-
-void TerminalTree::setRootNode( TerminalTreeNode * ttn ) {
-	this->rootNode = ttn;
-}
-
-TerminalTreeNode * TerminalTree::getRootNode() {
-	return this->rootNode;
-}
+#endif

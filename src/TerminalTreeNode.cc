@@ -31,3 +31,4 @@ bool TerminalTreeNode::isDead() {
 	return true;
 }
 
+void TerminalTreeNode::prune_tree() {}

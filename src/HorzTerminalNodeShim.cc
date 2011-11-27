@@ -20,49 +20,35 @@
  * THE SOFTWARE.
  */
 
-#include <ncurses.h>
-#include <iostream>
+#include "HorzTerminalNodeShim.hh"
 
-#include "TerminalTree.hh"
-
-TerminalTree::TerminalTree() {
+HorzTerminalNodeShim::HorzTerminalNodeShim(
+	TerminalTreeNode * top,
+	TerminalTreeNode * bottom
+) {
+	this->topNode    = top;
+	this->bottomNode = bottom;
 }
 
-TerminalTree::~TerminalTree() {
-}
+HorzTerminalNodeShim::~HorzTerminalNodeShim() {}
 
-void TerminalTree::renderTree() {
-	if ( ! this->rootNode )
-		return;
-	int rX2, rY2;
-	int rX1 = 0;
-	int rY1 = 0;
-	getmaxyx(stdscr, rY2, rX2);
-	this->rootNode->render( rX1, rY1, rX2, rY2 );
-}
-
-void TerminalTree::pokeTree() {
-	if ( this->rootNode )
-		this->rootNode->flush();
-}
-
-void TerminalTree::pruneTree() {
-	if ( ! this->rootNode )
-		return; /* we can't prune */
+void HorzTerminalNodeShim::render( int rX1, int rY1, int rX2, int rY2 ) {
+	int middleY = (rY2 - rY1);
 	
-	if ( ! this->rootNode->isDead() ) {
-		this->rootNode->prune_tree();
-		return;
-	}
+	if ( this->topNode ) /* if we've found a way to unalloc the node */
+		this->topNode->render( rX1, rY1, rX2, middleY );
+	if ( this->bottomNode )
+		this->bottomNode->render( rX1, middleY, rX2, rY2 );
+}
+void HorzTerminalNodeShim::flush() {
+	if ( this->topNode )
+		this->topNode->flush();
+	if ( this->bottomNode )
+		this->bottomNode->flush();
+}
+void HorzTerminalNodeShim::prune_tree() {
 	
-	delete this->rootNode;
-	this->rootNode = NULL;
 }
-
-void TerminalTree::setRootNode( TerminalTreeNode * ttn ) {
-	this->rootNode = ttn;
-}
-
-TerminalTreeNode * TerminalTree::getRootNode() {
-	return this->rootNode;
+bool HorzTerminalNodeShim::isDead() {
+	return false;
 }

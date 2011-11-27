@@ -222,4 +222,6 @@ void NcursesTerminal::render( int rX1, int rY1, int rX2, int rY2 ) {
 	this->render();
 }
 
+void NcursesTerminal::prune_tree() {}
+
 std::vector<NcursesTerminal *> ncurses_terminal_peers;
