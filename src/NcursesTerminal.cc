@@ -24,6 +24,7 @@
 
 #include <Shibuya.hh>
 #include <Exceptions.hh>
+#include <algorithm>
 
 #include <iostream>
 #include <malloc.h>
