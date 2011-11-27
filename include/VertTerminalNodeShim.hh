@@ -27,10 +27,10 @@
 
 class VertTerminalNodeShim : public TerminalTreeNode {
 	private:
-			TerminalTreeNode * topNode;
-			TerminalTreeNode * bottomNode;
+			TerminalTreeNode * leftNode;
+			TerminalTreeNode * rightNode;
 	public:
-		VertTerminalNodeShim(TerminalTreeNode * top, TerminalTreeNode * bottom);
+		VertTerminalNodeShim(TerminalTreeNode * left, TerminalTreeNode * right);
 		virtual ~VertTerminalNodeShim();
 		
 		virtual void render( int rX1, int rY1, int rX2, int rY2 );

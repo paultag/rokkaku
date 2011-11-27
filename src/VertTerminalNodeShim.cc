@@ -25,42 +25,42 @@
 #include <iostream>
 
 VertTerminalNodeShim::VertTerminalNodeShim(
-	TerminalTreeNode * top,
-	TerminalTreeNode * bottom
+	TerminalTreeNode * left,
+	TerminalTreeNode * right
 ) {
-	this->topNode    = top;
-	this->bottomNode = bottom;
+	this->leftNode  = left;
+	this->rightNode = right;
 }
 
 VertTerminalNodeShim::~VertTerminalNodeShim() {}
 
 void VertTerminalNodeShim::render( int rX1, int rY1, int rX2, int rY2 ) {
-	int middleY = ((rY2 - rY1) / 2);
+	int middleX = ((rX2 - rX1) / 2);
 	
-	if ( this->topNode ) /* if we've found a way to unalloc the node */
-		this->topNode->render( rX1, rY1, rX2, middleY );
+	if ( this->leftNode ) /* if we've found a way to unalloc the node */
+		this->leftNode->render( rX1, rY1, middleX, rY2 );
 	
-	if ( this->bottomNode )
-		this->bottomNode->render( rX1, middleY, rX2, rY2 );
+	if ( this->rightNode )
+		this->rightNode->render( middleX, rY1, rX2, rY2 );
 }
 void VertTerminalNodeShim::flush() {
-	if ( this->topNode )
-		this->topNode->flush();
-	if ( this->bottomNode )
-		this->bottomNode->flush();
+	if ( this->leftNode )
+		this->leftNode->flush();
+	if ( this->rightNode )
+		this->rightNode->flush();
 }
 void VertTerminalNodeShim::prune_tree( TerminalTreeNode ** newSelfRoot ) {
-	if ( this->topNode )
-		this->topNode->prune_tree( &this->topNode );
+	if ( this->leftNode )
+		this->leftNode->prune_tree( &this->leftNode );
 	
-	if ( this->bottomNode )
-		this->bottomNode->prune_tree( &this->bottomNode );
+	if ( this->rightNode )
+		this->rightNode->prune_tree( &this->rightNode );
 	
 	/* ok, now that our sub-nodes are pruned, we can check to see if we can
 	   prune ourself from the "tree" */
 	
-	bool nb = ( this->bottomNode == 0 );
-	bool nt = ( this->topNode    == 0 );
+	bool nb = ( this->rightNode == 0 );
+	bool nt = ( this->leftNode    == 0 );
 	
 	if ( nb || nt ) {
 		/* either nb or nt is null */
@@ -69,10 +69,10 @@ void VertTerminalNodeShim::prune_tree( TerminalTreeNode ** newSelfRoot ) {
 			*newSelfRoot = NULL;
 		} else if ( nb ) {
 			/* just nb */
-			*newSelfRoot = this->topNode;
+			*newSelfRoot = this->leftNode;
 		} else {
 			/* just nt */
-			*newSelfRoot = this->bottomNode;
+			*newSelfRoot = this->rightNode;
 		}
 		delete this; /* we're no longer needed */
 	} /* else, we do nothing */

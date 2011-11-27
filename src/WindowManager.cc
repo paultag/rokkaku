@@ -26,6 +26,7 @@
 #include <signal.h>
 
 #include "HorzTerminalNodeShim.hh"
+#include "VertTerminalNodeShim.hh"
 #include "NcursesTerminal.hh"
 #include "WindowManager.hh"
 #include "Rokkaku.hh"
@@ -94,7 +95,7 @@ void init_window_management() {
 	
 	NcursesTerminal * initialTerminal  = new NcursesTerminal();
 	NcursesTerminal * initialTerminal1 = new NcursesTerminal();
-	HorzTerminalNodeShim * shim = new HorzTerminalNodeShim( initialTerminal,
+	VertTerminalNodeShim * shim = new VertTerminalNodeShim( initialTerminal,
 		initialTerminal1 );
 	
 	initialTerminal->fork(login_shell);
