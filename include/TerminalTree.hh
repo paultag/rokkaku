@@ -25,7 +25,6 @@
 
 class TerminalTree {
 	private:
-
 	
 	public:
 		TerminalTree();

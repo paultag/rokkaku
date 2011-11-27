@@ -36,5 +36,3 @@ bool TerminalTree::renderTree() {
 
 void TerminalTree::pokeTree() {
 }
-
-

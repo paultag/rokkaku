@@ -43,7 +43,7 @@ void rokkaku_handle_signal( int signo ) {
 			exit(0);
 			break;
 		case SIGINT:
-			// focusedTerminal->getChild()->sigint();
+			// send sigint to focused terminal
 			break;
 		default:
 			break;
@@ -60,9 +60,7 @@ void focus_on_next_terminal() {
 
 void do_key( char ch ) {
 	if ( ch < 0x80 ) { /* If it's type-able */
-		//if ( focusedTerminal ) { /* and we're not null */
-		//	focusedTerminal->type(ch); /* eat it :) */
-		//}
+		// type at terminal
 	}
 }
 
@@ -75,7 +73,6 @@ void window_management_loop() {
 		
 		rokkaku_terminal_tree.pokeTree();
 		if ( rokkaku_terminal_tree.renderTree() ) {
-			//focusedTerminal->set_cursor();
 			update_screen();
 		} else {
 			usleep(5000);
