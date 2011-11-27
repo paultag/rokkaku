@@ -20,11 +20,11 @@
  * THE SOFTWARE.
  */
 
-#include "HorzTerminalNodeShim.hh"
+#include "VertTerminalNodeShim.hh"
 
 #include <iostream>
 
-HorzTerminalNodeShim::HorzTerminalNodeShim(
+VertTerminalNodeShim::VertTerminalNodeShim(
 	TerminalTreeNode * top,
 	TerminalTreeNode * bottom
 ) {
@@ -32,9 +32,9 @@ HorzTerminalNodeShim::HorzTerminalNodeShim(
 	this->bottomNode = bottom;
 }
 
-HorzTerminalNodeShim::~HorzTerminalNodeShim() {}
+VertTerminalNodeShim::~VertTerminalNodeShim() {}
 
-void HorzTerminalNodeShim::render( int rX1, int rY1, int rX2, int rY2 ) {
+void VertTerminalNodeShim::render( int rX1, int rY1, int rX2, int rY2 ) {
 	int middleY = ((rY2 - rY1) / 2);
 	
 	if ( this->topNode ) /* if we've found a way to unalloc the node */
@@ -43,13 +43,13 @@ void HorzTerminalNodeShim::render( int rX1, int rY1, int rX2, int rY2 ) {
 	if ( this->bottomNode )
 		this->bottomNode->render( rX1, middleY, rX2, rY2 );
 }
-void HorzTerminalNodeShim::flush() {
+void VertTerminalNodeShim::flush() {
 	if ( this->topNode )
 		this->topNode->flush();
 	if ( this->bottomNode )
 		this->bottomNode->flush();
 }
-void HorzTerminalNodeShim::prune_tree( TerminalTreeNode ** newSelfRoot ) {
+void VertTerminalNodeShim::prune_tree( TerminalTreeNode ** newSelfRoot ) {
 	if ( this->topNode )
 		this->topNode->prune_tree( &this->topNode );
 	
@@ -77,6 +77,6 @@ void HorzTerminalNodeShim::prune_tree( TerminalTreeNode ** newSelfRoot ) {
 		delete this; /* we're no longer needed */
 	} /* else, we do nothing */
 }
-bool HorzTerminalNodeShim::isDead() {
+bool VertTerminalNodeShim::isDead() {
 	return false;
 }
