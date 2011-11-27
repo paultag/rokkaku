@@ -75,6 +75,7 @@ void window_management_loop() {
 		}
 		
 		rokkaku_terminal_tree.pokeTree();
+		rokkaku_terminal_tree.pruneTree();
 		rokkaku_terminal_tree.renderTree();
 		
 		if ( focusedTerminal )
