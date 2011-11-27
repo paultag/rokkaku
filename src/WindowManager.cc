@@ -47,7 +47,7 @@ void rokkaku_handle_signal( int signo ) {
 			exit(0);
 			break;
 		case SIGINT:
-			// send sigint to focused terminal
+			focusedTerminal->sigint();
 			break;
 		default:
 			break;
