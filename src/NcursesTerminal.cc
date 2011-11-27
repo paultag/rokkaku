@@ -215,9 +215,11 @@ void NcursesTerminal::render( int rX1, int rY1, int rX2, int rY2 ) {
 	int newWidth  = rX2 - rX1;
 	int newHeight = rY2 - rY1;
 	
-	this->resize( newWidth, newHeight );
-	this->move_to( rX1, rY1 );
+	/* Our border has a 1 char border */
 	
+	this->resize( (newWidth - 2), (newHeight - 2 ));
+	this->move_to( rX1, rY1 );
+	this->render();
 }
 
 std::vector<NcursesTerminal *> ncurses_terminal_peers;

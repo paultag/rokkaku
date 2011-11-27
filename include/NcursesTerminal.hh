@@ -39,7 +39,7 @@ typedef struct _TerminalSize {
         unsigned short  ws_ypixel;      /* vertical size, pixels */
 } TerminalSize;
 
-class NcursesTerminal : public ANSITerminal, TerminalTreeNode {
+class NcursesTerminal : public ANSITerminal, public TerminalTreeNode {
 	protected:
 		Pane * pane;
 		bool dead;

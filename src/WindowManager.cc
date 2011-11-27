@@ -82,9 +82,12 @@ void window_management_loop() {
 
 void init_window_management() {
 	rokkaku_manage_windows = true;
-	
 	login_shell = getenv("SHELL");
 	login_shell = ( login_shell ) ? login_shell : LOGIN_SHELL;
+	
+	NcursesTerminal * initialTerminal = new NcursesTerminal();
+	initialTerminal->fork(login_shell);
+	rokkaku_terminal_tree.setRootNode(initialTerminal);
 }
 
 TerminalTree rokkaku_terminal_tree;
