@@ -49,14 +49,7 @@ void TerminalTree::pokeTree() {
 void TerminalTree::pruneTree() {
 	if ( ! this->rootNode )
 		return; /* we can't prune */
-	
-	if ( ! this->rootNode->isDead() ) {
-		this->rootNode->prune_tree();
-		return;
-	}
-	
-	delete this->rootNode;
-	this->rootNode = NULL;
+	this->rootNode->prune_tree( &this->rootNode );
 }
 
 void TerminalTree::setRootNode( TerminalTreeNode * ttn ) {

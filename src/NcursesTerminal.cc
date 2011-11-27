@@ -222,6 +222,13 @@ void NcursesTerminal::render( int rX1, int rY1, int rX2, int rY2 ) {
 	this->render();
 }
 
-void NcursesTerminal::prune_tree() {}
+void NcursesTerminal::prune_tree( TerminalTreeNode ** newSelfRoot ) {
+	if ( ! this->isDead() )
+		return;
+	
+	/* we're dead. Time to unalloc */
+	*newSelfRoot = NULL;
+	delete this;
+}
 
 std::vector<NcursesTerminal *> ncurses_terminal_peers;

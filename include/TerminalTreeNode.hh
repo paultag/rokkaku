@@ -32,7 +32,7 @@ class TerminalTreeNode {
 		virtual void render( int rX1, int rY1, int rX2, int rY2 );
 		virtual void flush();
 		virtual bool isDead();
-		virtual void prune_tree();
+		virtual void prune_tree( TerminalTreeNode ** newSelfRoot );
 };
 
 #endif

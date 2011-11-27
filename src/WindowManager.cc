@@ -25,6 +25,7 @@
 #include <stdlib.h>
 #include <signal.h>
 
+#include "HorzTerminalNodeShim.hh"
 #include "NcursesTerminal.hh"
 #include "WindowManager.hh"
 #include "Rokkaku.hh"
@@ -91,10 +92,16 @@ void init_window_management() {
 	login_shell = getenv("SHELL");
 	login_shell = ( login_shell ) ? login_shell : LOGIN_SHELL;
 	
-	NcursesTerminal * initialTerminal = new NcursesTerminal();
+	NcursesTerminal * initialTerminal  = new NcursesTerminal();
+	NcursesTerminal * initialTerminal1 = new NcursesTerminal();
+	HorzTerminalNodeShim * shim = new HorzTerminalNodeShim( initialTerminal,
+		initialTerminal1 );
+	
 	initialTerminal->fork(login_shell);
+	initialTerminal1->fork(login_shell);
+	
 	focusedTerminal = initialTerminal;
-	rokkaku_terminal_tree.setRootNode(initialTerminal);
+	rokkaku_terminal_tree.setRootNode(shim);
 }
 
 TerminalTree rokkaku_terminal_tree;

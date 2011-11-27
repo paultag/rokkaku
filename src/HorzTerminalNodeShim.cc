@@ -22,6 +22,8 @@
 
 #include "HorzTerminalNodeShim.hh"
 
+#include <iostream>
+
 HorzTerminalNodeShim::HorzTerminalNodeShim(
 	TerminalTreeNode * top,
 	TerminalTreeNode * bottom
@@ -33,10 +35,11 @@ HorzTerminalNodeShim::HorzTerminalNodeShim(
 HorzTerminalNodeShim::~HorzTerminalNodeShim() {}
 
 void HorzTerminalNodeShim::render( int rX1, int rY1, int rX2, int rY2 ) {
-	int middleY = (rY2 - rY1);
+	int middleY = ((rY2 - rY1) / 2);
 	
 	if ( this->topNode ) /* if we've found a way to unalloc the node */
 		this->topNode->render( rX1, rY1, rX2, middleY );
+	
 	if ( this->bottomNode )
 		this->bottomNode->render( rX1, middleY, rX2, rY2 );
 }
@@ -46,8 +49,34 @@ void HorzTerminalNodeShim::flush() {
 	if ( this->bottomNode )
 		this->bottomNode->flush();
 }
-void HorzTerminalNodeShim::prune_tree() {
+void HorzTerminalNodeShim::prune_tree( TerminalTreeNode ** newSelfRoot ) {
+	if ( this->topNode )
+		this->topNode->prune_tree( &this->topNode );
 	
+	if ( this->bottomNode )
+		this->bottomNode->prune_tree( &this->bottomNode );
+	
+	/* ok, now that our sub-nodes are pruned, we can check to see if we can
+	   prune ourself from the "tree" */
+	
+	bool nb = ( this->bottomNode == 0 );
+	bool nt = ( this->topNode    == 0 );
+	
+	if ( nb || nt ) {
+		/* either nb or nt is null */
+		if ( nb && nt ) {
+			/* they're both null */
+			*newSelfRoot = NULL;
+		} else if ( nb ) {
+			/* just nb */
+			*newSelfRoot = this->topNode;
+		} else {
+			/* just nt */
+			*newSelfRoot = this->bottomNode;
+		}
+		
+		delete this; /* we're no longer needed */
+	} /* else, we do nothing */
 }
 bool HorzTerminalNodeShim::isDead() {
 	return false;

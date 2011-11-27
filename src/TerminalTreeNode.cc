@@ -31,4 +31,4 @@ bool TerminalTreeNode::isDead() {
 	return true;
 }
 
-void TerminalTreeNode::prune_tree() {}
+void TerminalTreeNode::prune_tree( TerminalTreeNode ** newSelfRoot ) {}
