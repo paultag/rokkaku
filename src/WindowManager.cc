@@ -30,6 +30,7 @@
 #include "Rokkaku.hh"
 
 const char       * login_shell;
+NcursesTerminal  * focusedTerminal;
 
 void rokkaku_handle_signal( int signo ) {
 	switch ( signo ) {
@@ -61,6 +62,8 @@ void focus_on_next_terminal() {
 void do_key( char ch ) {
 	if ( ch < 0x80 ) { /* If it's type-able */
 		// type at terminal
+		if ( focusedTerminal )
+			focusedTerminal->type( ch );
 	}
 }
 
@@ -72,11 +75,13 @@ void window_management_loop() {
 		}
 		
 		rokkaku_terminal_tree.pokeTree();
-		if ( rokkaku_terminal_tree.renderTree() ) {
-			update_screen();
-		} else {
-			usleep(5000);
-		}
+		rokkaku_terminal_tree.renderTree();
+		
+		if ( focusedTerminal )
+			focusedTerminal->set_cursor();
+		
+		update_screen();
+		usleep(5000);
 	}
 }
 
@@ -87,6 +92,7 @@ void init_window_management() {
 	
 	NcursesTerminal * initialTerminal = new NcursesTerminal();
 	initialTerminal->fork(login_shell);
+	focusedTerminal = initialTerminal;
 	rokkaku_terminal_tree.setRootNode(initialTerminal);
 }
 
