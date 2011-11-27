@@ -33,6 +33,7 @@
 
 const char       * login_shell;
 NcursesTerminal  * focusedTerminal;
+int                menu_key;
 
 void rokkaku_handle_signal( int signo ) {
 	switch ( signo ) {
@@ -64,6 +65,9 @@ void focus_on_next_terminal() {
 void do_key( char ch ) {
 	if ( ch < 0x80 ) { /* If it's type-able */
 		// type at terminal
+		
+		
+		
 		if ( focusedTerminal )
 			focusedTerminal->type( ch );
 	}
@@ -89,9 +93,15 @@ void window_management_loop() {
 }
 
 void init_window_management() {
+	
+	menu_key        = 0x05; // CTRL+e for most systems.
+	focusedTerminal = NULL;
 	rokkaku_manage_windows = true;
+	
 	login_shell = getenv("SHELL");
 	login_shell = ( login_shell ) ? login_shell : LOGIN_SHELL;
+	
+	/* clean this up */
 	
 	NcursesTerminal * initialTerminal  = new NcursesTerminal();
 	NcursesTerminal * initialTerminal1 = new NcursesTerminal();
@@ -107,6 +117,8 @@ void init_window_management() {
 	initialTerminal2->fork(login_shell);
 	
 	focusedTerminal = initialTerminal;
+	/* end cleanup */
+	
 	rokkaku_terminal_tree.setRootNode(vshim);
 }
 
