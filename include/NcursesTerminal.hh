@@ -48,7 +48,8 @@ class NcursesTerminal : public ANSITerminal, public TerminalTreeNode {
 
 	public:
 		NcursesTerminal();
-		~NcursesTerminal();
+		virtual ~NcursesTerminal();
+		
 		NcursesTerminal( int width, int height );
 		NcursesTerminal( int width, int height, int x, int y );
 		

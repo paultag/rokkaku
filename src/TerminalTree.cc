@@ -53,9 +53,8 @@ void TerminalTree::pruneTree() {
 	if ( ! this->rootNode->isDead() )
 		return; /* we're undead. */
 	
-	delete (this->rootNode);
-	//this->rootNode = NULL;
-	
+	delete this->rootNode;
+	this->rootNode = NULL;
 }
 
 void TerminalTree::setRootNode( TerminalTreeNode * ttn ) {
