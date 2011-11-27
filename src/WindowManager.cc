@@ -157,6 +157,14 @@ void do_key( char ch ) {
 	}
 }
 
+bool is_active( NcursesTerminal * n ) {
+	return ( std::find(
+			ncurses_terminal_peers.begin(),
+			ncurses_terminal_peers.end(),
+			n
+		) != ncurses_terminal_peers.end());
+}
+
 void window_management_loop() {
 	while ( rokkaku_manage_windows ) {
 		char ch = getch();
@@ -168,8 +176,13 @@ void window_management_loop() {
 		rokkaku_terminal_tree.pruneTree();
 		rokkaku_terminal_tree.renderTree();
 		
-		//if ( focusedTerminal )
-		//	focusedTerminal->set_cursor();
+		if ( focusedTerminal ) {
+			if ( is_active( focusedTerminal ) ) {
+				focusedTerminal->set_cursor();
+			} else {
+				focusedTerminal = *(ncurses_terminal_peers.begin());
+			}
+		}
 		
 		update_screen();
 		usleep(5000);

@@ -63,6 +63,12 @@ NcursesTerminal::~NcursesTerminal() {
 	delete this->pane;
 	/* OK, now that we're going away, let's remove ourselves from
 	   the ncurses peers list */
+	ncurses_terminal_peers.erase(
+		std::find(
+		ncurses_terminal_peers.begin(),
+		ncurses_terminal_peers.end(),
+		this
+	));
 }
 
 bool NcursesTerminal::render( WINDOW * win ) {
@@ -226,6 +232,8 @@ void NcursesTerminal::render( int rX1, int rY1, int rX2, int rY2 ) {
 void NcursesTerminal::prune_tree( TerminalTreeNode ** newSelfRoot ) {
 	if ( ! this->isDead() )
 		return;
+	
+	std::clog << "Terminal Died" << std::endl;
 	
 	/* we're dead. Time to unalloc */
 	*newSelfRoot = NULL;
