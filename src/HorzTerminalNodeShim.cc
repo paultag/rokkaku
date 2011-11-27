@@ -35,7 +35,7 @@ HorzTerminalNodeShim::HorzTerminalNodeShim(
 HorzTerminalNodeShim::~HorzTerminalNodeShim() {}
 
 void HorzTerminalNodeShim::render( int rX1, int rY1, int rX2, int rY2 ) {
-	int middleY = ((rY2 - rY1) / 2);
+	int middleY = ((rY2 - rY1) / 2) + rY1;
 	
 	if ( this->topNode ) /* if we've found a way to unalloc the node */
 		this->topNode->render( rX1, rY1, rX2, middleY );

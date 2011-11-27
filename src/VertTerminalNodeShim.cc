@@ -35,7 +35,7 @@ VertTerminalNodeShim::VertTerminalNodeShim(
 VertTerminalNodeShim::~VertTerminalNodeShim() {}
 
 void VertTerminalNodeShim::render( int rX1, int rY1, int rX2, int rY2 ) {
-	int middleX = ((rX2 - rX1) / 2);
+	int middleX = ((rX2 - rX1) / 2) + rX1;
 	
 	if ( this->leftNode ) /* if we've found a way to unalloc the node */
 		this->leftNode->render( rX1, rY1, middleX, rY2 );
@@ -60,7 +60,7 @@ void VertTerminalNodeShim::prune_tree( TerminalTreeNode ** newSelfRoot ) {
 	   prune ourself from the "tree" */
 	
 	bool nb = ( this->rightNode == 0 );
-	bool nt = ( this->leftNode    == 0 );
+	bool nt = ( this->leftNode  == 0 );
 	
 	if ( nb || nt ) {
 		/* either nb or nt is null */

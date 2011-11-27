@@ -95,14 +95,19 @@ void init_window_management() {
 	
 	NcursesTerminal * initialTerminal  = new NcursesTerminal();
 	NcursesTerminal * initialTerminal1 = new NcursesTerminal();
+	NcursesTerminal * initialTerminal2 = new NcursesTerminal();
+	
 	VertTerminalNodeShim * shim = new VertTerminalNodeShim( initialTerminal,
 		initialTerminal1 );
+	HorzTerminalNodeShim * vshim = new HorzTerminalNodeShim( initialTerminal2,
+		shim );
 	
 	initialTerminal->fork(login_shell);
 	initialTerminal1->fork(login_shell);
+	initialTerminal2->fork(login_shell);
 	
 	focusedTerminal = initialTerminal;
-	rokkaku_terminal_tree.setRootNode(shim);
+	rokkaku_terminal_tree.setRootNode(vshim);
 }
 
 TerminalTree rokkaku_terminal_tree;
