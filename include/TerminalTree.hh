@@ -23,15 +23,21 @@
 #ifndef _TERMINALTREE_HH_
 #define _TERMINALTREE_HH_ CAN_HAS
 
+#include "TerminalTreeNode.hh"
+
 class TerminalTree {
 	private:
-	
+		TerminalTreeNode * rootNode;
+		
 	public:
 		TerminalTree();
 		~TerminalTree();
 		
 		bool renderTree();
 		void pokeTree();
+		
+		void setRootNode( TerminalTreeNode * ttn );
+		TerminalTreeNode * getRootNode();
 };
 
 #endif

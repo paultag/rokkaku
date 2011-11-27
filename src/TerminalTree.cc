@@ -36,3 +36,11 @@ bool TerminalTree::renderTree() {
 
 void TerminalTree::pokeTree() {
 }
+
+void TerminalTree::setRootNode( TerminalTreeNode * ttn ) {
+	this->rootNode = ttn;
+}
+
+TerminalTreeNode * TerminalTree::getRootNode() {
+	return this->rootNode;
+}
