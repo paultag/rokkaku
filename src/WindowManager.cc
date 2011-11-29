@@ -233,12 +233,13 @@ void init_window_management() {
 	NcursesTerminal * initialTerminal1 = new NcursesTerminal();
 	NcursesTerminal * initialTerminal2 = new NcursesTerminal();
 	
-	VertTerminalNodeShim * shim = new VertTerminalNodeShim( initialTerminal,
-		initialTerminal1 );
-	HorzTerminalNodeShim * vshim = new HorzTerminalNodeShim( initialTerminal2,
-		shim );
+	VertTerminalNodeShim * shim =
+		new VertTerminalNodeShim( initialTerminal, initialTerminal1 );
 	
-	initialTerminal->fork(login_shell);
+	HorzTerminalNodeShim * vshim =
+		new HorzTerminalNodeShim( initialTerminal2, shim );
+	
+	 initialTerminal->fork(login_shell);
 	initialTerminal1->fork(login_shell);
 	initialTerminal2->fork(login_shell);
 	
