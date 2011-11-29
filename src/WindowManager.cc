@@ -83,7 +83,30 @@ void focus_on_next_terminal() {
 		}
 	}
 }
-void focus_on_prev_terminal() {}
+void focus_on_prev_terminal() {
+	std::vector<NcursesTerminal *>::iterator i =
+		std::find(
+			ncurses_terminal_peers.begin(),
+			ncurses_terminal_peers.end(),
+			focusedTerminal
+		);
+	if ( i == ncurses_terminal_peers.end() ) {
+		/* somehow, not found. abrt */
+		std::clog << "n-term not found" << std::endl;
+		focusedTerminal = *(ncurses_terminal_peers.begin());
+	} else {
+		--i;
+		if ( i == ncurses_terminal_peers.end() ) {
+			/* we had the last node */
+			std::clog << "n-term wrap" << std::endl;
+			focusedTerminal = *(ncurses_terminal_peers.begin());
+		} else {
+			/* set the iterator to current node */
+			std::clog << "n-term next" << std::endl;
+			focusedTerminal = *(i);
+		}
+	}
+}
 
 void do_wm_menu() {
 	bool wm_menu_iface_active = true;
@@ -106,7 +129,7 @@ void do_wm_menu() {
 	mvwprintw(p.getWindow(), 3, 2, "q -- quit rokkaku" );
 	mvwprintw(p.getWindow(), 4, 2, "w -- exit menu" );
 	mvwprintw(p.getWindow(), 5, 2, "n -- next window" );
-	mvwprintw(p.getWindow(), 6, 2, "m -- U previous window" );
+	mvwprintw(p.getWindow(), 6, 2, "m -- previous window" );
 	mvwprintw(p.getWindow(), 7, 2, "h -- U new term, split horz" );
 	mvwprintw(p.getWindow(), 8, 2, "v -- U new term, split vert" );
 	mvwprintw(p.getWindow(), 9, 2, "l -- rebuild screen" );
@@ -130,6 +153,12 @@ void do_wm_menu() {
 					break;
 				case 'n':
 					focus_on_next_terminal();
+					focusedTerminal->set_cursor();
+					wm_menu_iface_active   = false;
+					/* output status */
+					break;
+				case 'm':
+					focus_on_prev_terminal();
 					focusedTerminal->set_cursor();
 					wm_menu_iface_active   = false;
 					/* output status */
