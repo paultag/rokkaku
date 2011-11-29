@@ -80,3 +80,10 @@ void VertTerminalNodeShim::prune_tree( TerminalTreeNode ** newSelfRoot ) {
 bool VertTerminalNodeShim::isDead() {
 	return false;
 }
+void VertTerminalNodeShim::replace_node(
+	TerminalTreeNode ** newSelfRoot,
+	TerminalTreeNode * node
+) {
+
+}
+

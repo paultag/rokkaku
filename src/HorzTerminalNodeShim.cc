@@ -80,3 +80,9 @@ void HorzTerminalNodeShim::prune_tree( TerminalTreeNode ** newSelfRoot ) {
 bool HorzTerminalNodeShim::isDead() {
 	return false;
 }
+void HorzTerminalNodeShim::replace_node(
+	TerminalTreeNode ** newSelfRoot,
+	TerminalTreeNode * node
+) {
+
+}

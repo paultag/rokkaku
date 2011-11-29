@@ -37,6 +37,8 @@ class HorzTerminalNodeShim : public TerminalTreeNode {
 		virtual void flush();
 		virtual bool isDead();
 		virtual void prune_tree( TerminalTreeNode ** newSelfRoot );
+		virtual void replace_node( TerminalTreeNode ** newSelfRoot,
+			TerminalTreeNode * node );
 };
 
 #endif
