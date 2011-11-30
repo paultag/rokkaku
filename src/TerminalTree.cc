@@ -57,7 +57,11 @@ void TerminalTree::setRootNode( TerminalTreeNode * ttn ) {
 }
 
 void TerminalTree::replace_node( TerminalTreeNode * ttn, TerminalTreeNode * toReplace ) {
-	this->rootNode->replace_node( toReplace, ttn );
+	if ( this->rootNode == toReplace ) {
+		this->rootNode = ttn;
+	} else {
+		this->rootNode->replace_node( toReplace, ttn );
+	}
 }
 
 TerminalTreeNode * TerminalTree::getRootNode() {

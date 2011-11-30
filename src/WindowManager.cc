@@ -35,6 +35,8 @@ const char       * login_shell;
 NcursesTerminal  * focusedTerminal;
 int                menu_key;
 
+void horz_split_current_terminal();
+
 void rokkaku_handle_signal( int signo ) {
 	switch ( signo ) {
 		case SIGWINCH:
@@ -157,6 +159,10 @@ void do_wm_menu() {
 					wm_menu_iface_active   = false;
 					/* output status */
 					break;
+				case 'h':
+					horz_split_current_terminal();
+					wm_menu_iface_active   = false;
+					break;
 				default:
 					break;
 			}
@@ -218,19 +224,22 @@ void horz_split_current_terminal() {
 
 	HorzTerminalNodeShim * shim = new HorzTerminalNodeShim(
 		focusedTerminal, nt );
-	rokkaku_terminal_tree.replace_node( focusedTerminal, shim );
+	rokkaku_terminal_tree.replace_node( shim, focusedTerminal );
 }
 
 void init_window_management() {
-	
 	menu_key        = 0x05; // CTRL+e for most systems.
 	focusedTerminal = NULL;
 	rokkaku_manage_windows = true;
 	
 	login_shell = getenv("SHELL");
 	login_shell = ( login_shell ) ? login_shell : LOGIN_SHELL;
-	
-	//rokkaku_terminal_tree.setRootNode(vshim);
+
+	NcursesTerminal * nt = new NcursesTerminal();
+	nt->fork(login_shell);
+
+	rokkaku_terminal_tree.setRootNode(nt);
+	focusedTerminal = nt;
 }
 
 TerminalTree rokkaku_terminal_tree;
