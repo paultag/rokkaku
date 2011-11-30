@@ -90,6 +90,10 @@ void HorzTerminalNodeShim::replace_node(
 	} else {
 		if ( this->bottomNode == toReplace ) {
 			this->bottomNode = newNode;
+		} else {
+			/* utter crap */
+			this->topNode->replace_node( toReplace, newNode );
+			this->bottomNode->replace_node( toReplace, newNode );
 		}
 	}
 }

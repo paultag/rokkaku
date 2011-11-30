@@ -81,9 +81,20 @@ bool VertTerminalNodeShim::isDead() {
 	return false;
 }
 void VertTerminalNodeShim::replace_node(
-	TerminalTreeNode * newSelfRoot,
-	TerminalTreeNode * node
+	TerminalTreeNode * toReplace,
+	TerminalTreeNode * newNode
 ) {
-
+	/* replace, ttn */
+	if ( this->rightNode == toReplace ) {
+		this->rightNode = newNode;
+	} else {
+		if ( this->leftNode == toReplace ) {
+			this->leftNode = newNode;
+		} else {
+			/* utter crap */
+			this->rightNode->replace_node( toReplace, newNode );
+			this->leftNode->replace_node( toReplace, newNode );
+		}
+	}
 }
 
