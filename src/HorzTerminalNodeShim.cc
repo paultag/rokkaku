@@ -81,7 +81,7 @@ bool HorzTerminalNodeShim::isDead() {
 	return false;
 }
 void HorzTerminalNodeShim::replace_node(
-	TerminalTreeNode ** newSelfRoot,
+	TerminalTreeNode * newSelfRoot,
 	TerminalTreeNode * node
 ) {
 

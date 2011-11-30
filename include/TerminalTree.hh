@@ -37,6 +37,7 @@ class TerminalTree {
 		void pokeTree();
 		void pruneTree();
 		void setRootNode( TerminalTreeNode * ttn );
+		void replace_node(TerminalTreeNode * newNode, TerminalTreeNode * toReplace);
 		TerminalTreeNode * getRootNode();
 };
 

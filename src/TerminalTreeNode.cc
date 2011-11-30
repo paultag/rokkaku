@@ -33,6 +33,6 @@ bool TerminalTreeNode::isDead() {
 
 void TerminalTreeNode::prune_tree( TerminalTreeNode ** newSelfRoot ) {}
 void TerminalTreeNode::replace_node(
-	TerminalTreeNode ** newSelfRoot,
+	TerminalTreeNode * newSelfRoot,
 	TerminalTreeNode * node
 ) {}

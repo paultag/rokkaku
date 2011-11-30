@@ -81,7 +81,7 @@ bool VertTerminalNodeShim::isDead() {
 	return false;
 }
 void VertTerminalNodeShim::replace_node(
-	TerminalTreeNode ** newSelfRoot,
+	TerminalTreeNode * newSelfRoot,
 	TerminalTreeNode * node
 ) {
 

@@ -68,17 +68,14 @@ void focus_on_next_terminal() {
 		);
 	if ( i == ncurses_terminal_peers.end() ) {
 		/* somehow, not found. abrt */
-		std::clog << "n-term not found" << std::endl;
 		focusedTerminal = *(ncurses_terminal_peers.begin());
 	} else {
 		++i;
 		if ( i == ncurses_terminal_peers.end() ) {
 			/* we had the last node */
-			std::clog << "n-term wrap" << std::endl;
 			focusedTerminal = *(ncurses_terminal_peers.begin());
 		} else {
 			/* set the iterator to current node */
-			std::clog << "n-term next" << std::endl;
 			focusedTerminal = *(i);
 		}
 	}
@@ -92,17 +89,14 @@ void focus_on_prev_terminal() {
 		);
 	if ( i == ncurses_terminal_peers.end() ) {
 		/* somehow, not found. abrt */
-		std::clog << "n-term not found" << std::endl;
 		focusedTerminal = *(ncurses_terminal_peers.begin());
 	} else {
 		--i;
 		if ( i == ncurses_terminal_peers.end() ) {
 			/* we had the last node */
-			std::clog << "n-term wrap" << std::endl;
 			focusedTerminal = *(ncurses_terminal_peers.begin());
 		} else {
 			/* set the iterator to current node */
-			std::clog << "n-term next" << std::endl;
 			focusedTerminal = *(i);
 		}
 	}
@@ -218,6 +212,15 @@ void window_management_loop() {
 	}
 }
 
+void horz_split_current_terminal() {
+	NcursesTerminal * nt = new NcursesTerminal();
+	nt->fork( login_shell );
+
+	HorzTerminalNodeShim * shim = new HorzTerminalNodeShim(
+		focusedTerminal, nt );
+	rokkaku_terminal_tree.replace_node( focusedTerminal, shim );
+}
+
 void init_window_management() {
 	
 	menu_key        = 0x05; // CTRL+e for most systems.
@@ -227,26 +230,7 @@ void init_window_management() {
 	login_shell = getenv("SHELL");
 	login_shell = ( login_shell ) ? login_shell : LOGIN_SHELL;
 	
-	/* clean this up */
-	
-	NcursesTerminal * initialTerminal  = new NcursesTerminal();
-	NcursesTerminal * initialTerminal1 = new NcursesTerminal();
-	NcursesTerminal * initialTerminal2 = new NcursesTerminal();
-	
-	VertTerminalNodeShim * shim =
-		new VertTerminalNodeShim( initialTerminal, initialTerminal1 );
-	
-	HorzTerminalNodeShim * vshim =
-		new HorzTerminalNodeShim( initialTerminal2, shim );
-	
-	 initialTerminal->fork(login_shell);
-	initialTerminal1->fork(login_shell);
-	initialTerminal2->fork(login_shell);
-	
-	focusedTerminal = initialTerminal;
-	/* end cleanup */
-	
-	rokkaku_terminal_tree.setRootNode(vshim);
+	//rokkaku_terminal_tree.setRootNode(vshim);
 }
 
 TerminalTree rokkaku_terminal_tree;
