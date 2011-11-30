@@ -36,6 +36,7 @@ NcursesTerminal  * focusedTerminal;
 int                menu_key;
 
 void horz_split_current_terminal();
+void vert_split_current_terminal();
 
 void rokkaku_handle_signal( int signo ) {
 	switch ( signo ) {
@@ -163,6 +164,10 @@ void do_wm_menu() {
 					horz_split_current_terminal();
 					wm_menu_iface_active   = false;
 					break;
+				case 'v':
+					vert_split_current_terminal();
+					wm_menu_iface_active   = false;
+					break;
 				default:
 					break;
 			}
@@ -223,6 +228,15 @@ void horz_split_current_terminal() {
 	nt->fork( login_shell );
 
 	HorzTerminalNodeShim * shim = new HorzTerminalNodeShim(
+		focusedTerminal, nt );
+	rokkaku_terminal_tree.replace_node( shim, focusedTerminal );
+}
+
+void vert_split_current_terminal() {
+	NcursesTerminal * nt = new NcursesTerminal();
+	nt->fork( login_shell );
+
+	VertTerminalNodeShim * shim = new VertTerminalNodeShim(
 		focusedTerminal, nt );
 	rokkaku_terminal_tree.replace_node( shim, focusedTerminal );
 }
