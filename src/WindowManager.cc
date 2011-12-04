@@ -228,7 +228,7 @@ void window_management_loop() {
 void horz_split_current_terminal() {
 	NcursesTerminal * nt = new NcursesTerminal();
 	nt->fork( login_shell );
-
+	
 	HorzTerminalNodeShim * shim = new HorzTerminalNodeShim(
 		focusedTerminal, nt );
 	rokkaku_terminal_tree.replace_node( shim, focusedTerminal );
@@ -239,7 +239,7 @@ void horz_split_current_terminal() {
 void vert_split_current_terminal() {
 	NcursesTerminal * nt = new NcursesTerminal();
 	nt->fork( login_shell );
-
+	
 	VertTerminalNodeShim * shim = new VertTerminalNodeShim(
 		focusedTerminal, nt );
 	rokkaku_terminal_tree.replace_node( shim, focusedTerminal );
@@ -254,10 +254,10 @@ void init_window_management() {
 	
 	login_shell = getenv("SHELL");
 	login_shell = ( login_shell ) ? login_shell : LOGIN_SHELL;
-
+	
 	NcursesTerminal * nt = new NcursesTerminal();
 	nt->fork(login_shell);
-
+	
 	rokkaku_terminal_tree.setRootNode(nt);
 	focusedTerminal = nt;
 }

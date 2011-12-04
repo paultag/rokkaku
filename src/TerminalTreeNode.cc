@@ -25,7 +25,9 @@
 TerminalTreeNode::TerminalTreeNode() {}
 TerminalTreeNode::~TerminalTreeNode() {}
 
-bool TerminalTreeNode::render( int rX1, int rY1, int rX2, int rY2 ) {}
+bool TerminalTreeNode::render( int rX1, int rY1, int rX2, int rY2 ) {
+	return false;
+}
 void TerminalTreeNode::flush() {}
 bool TerminalTreeNode::isDead() {
 	return true;
