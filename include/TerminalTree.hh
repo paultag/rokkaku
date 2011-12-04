@@ -33,7 +33,7 @@ class TerminalTree {
 		TerminalTree();
 		~TerminalTree();
 		
-		void renderTree();
+		bool renderTree();
 		void pokeTree();
 		void pruneTree();
 		void setRootNode( TerminalTreeNode * ttn );

@@ -34,14 +34,19 @@ VertTerminalNodeShim::VertTerminalNodeShim(
 
 VertTerminalNodeShim::~VertTerminalNodeShim() {}
 
-void VertTerminalNodeShim::render( int rX1, int rY1, int rX2, int rY2 ) {
+bool VertTerminalNodeShim::render( int rX1, int rY1, int rX2, int rY2 ) {
 	int middleX = ((rX2 - rX1) / 2) + rX1;
 	
+	int r1 = false;
+	int r2 = false;
+	
 	if ( this->leftNode ) /* if we've found a way to unalloc the node */
-		this->leftNode->render( rX1, rY1, middleX, rY2 );
+		r1 = this->leftNode->render( rX1, rY1, middleX, rY2 );
 	
 	if ( this->rightNode )
-		this->rightNode->render( middleX, rY1, rX2, rY2 );
+		r2 = this->rightNode->render( middleX, rY1, rX2, rY2 );
+	
+	return r1 || r2;
 }
 void VertTerminalNodeShim::flush() {
 	if ( this->leftNode )

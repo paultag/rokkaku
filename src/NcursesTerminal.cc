@@ -218,7 +218,7 @@ bool NcursesTerminal::isDead() {
 	return this->dead;
 }
 
-void NcursesTerminal::render( int rX1, int rY1, int rX2, int rY2 ) {
+bool NcursesTerminal::render( int rX1, int rY1, int rX2, int rY2 ) {
 	int newWidth  = rX2 - rX1;
 	int newHeight = rY2 - rY1;
 	
@@ -226,7 +226,8 @@ void NcursesTerminal::render( int rX1, int rY1, int rX2, int rY2 ) {
 	
 	this->resize( (newWidth - 2), (newHeight - 2 ));
 	this->move_to( rX1, rY1 );
-	this->render();
+	
+	return this->render();
 }
 
 void NcursesTerminal::prune_tree( TerminalTreeNode ** newSelfRoot ) {

@@ -31,14 +31,15 @@ TerminalTree::TerminalTree() {
 TerminalTree::~TerminalTree() {
 }
 
-void TerminalTree::renderTree() {
+bool TerminalTree::renderTree() {
 	if ( ! this->rootNode )
-		return;
+		return false;
+	
 	int rX2, rY2;
 	int rX1 = 0;
 	int rY1 = 0;
 	getmaxyx(stdscr, rY2, rX2);
-	this->rootNode->render( rX1, rY1, rX2, rY2 );
+	return this->rootNode->render( rX1, rY1, rX2, rY2 );
 }
 
 void TerminalTree::pokeTree() {

@@ -66,7 +66,7 @@ class NcursesTerminal : public ANSITerminal, public TerminalTreeNode {
 		void insert( unsigned char c );
 		
 		/* Terminal Tree Node things */
-		virtual void render( int rX1, int rY1, int rX2, int rY2 );
+		virtual bool render( int rX1, int rY1, int rX2, int rY2 );
 		virtual void flush();
 		virtual bool isDead();
 		virtual void prune_tree( TerminalTreeNode ** newSelfRoot );

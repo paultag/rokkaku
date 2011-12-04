@@ -183,6 +183,7 @@ void do_key( char ch ) {
 		
 		if ( ch == menu_key ) {
 			do_wm_menu();
+			update_screen();
 			return;
 		}
 		
@@ -208,7 +209,11 @@ void window_management_loop() {
 		
 		rokkaku_terminal_tree.pokeTree();
 		rokkaku_terminal_tree.pruneTree();
-		rokkaku_terminal_tree.renderTree();
+		if ( rokkaku_terminal_tree.renderTree() ) {
+			update_screen();
+		} else {
+			usleep(4000);
+		}
 		
 		if ( focusedTerminal ) {
 			if ( is_active( focusedTerminal ) ) {
@@ -217,9 +222,6 @@ void window_management_loop() {
 				focusedTerminal = *(ncurses_terminal_peers.begin());
 			}
 		}
-		
-		update_screen();
-		usleep(5000);
 	}
 }
 
