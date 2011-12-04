@@ -232,6 +232,8 @@ void horz_split_current_terminal() {
 	HorzTerminalNodeShim * shim = new HorzTerminalNodeShim(
 		focusedTerminal, nt );
 	rokkaku_terminal_tree.replace_node( shim, focusedTerminal );
+	
+	focusedTerminal = nt;
 }
 
 void vert_split_current_terminal() {
@@ -241,6 +243,8 @@ void vert_split_current_terminal() {
 	VertTerminalNodeShim * shim = new VertTerminalNodeShim(
 		focusedTerminal, nt );
 	rokkaku_terminal_tree.replace_node( shim, focusedTerminal );
+	
+	focusedTerminal = nt;
 }
 
 void init_window_management() {
