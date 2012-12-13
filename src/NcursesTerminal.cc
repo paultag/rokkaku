@@ -27,6 +27,7 @@
 #include <algorithm>
 
 #include <iostream>
+#include <unistd.h>
 #include <malloc.h>
 #include <signal.h>
 
